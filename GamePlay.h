@@ -84,7 +84,9 @@ public:
     pair<int, string> minValue(Board* curboard, int alpha, int beta, int depth);
     string miniMax(Board* curboard, int depth);
     void printMarker(Board* board);
-    
+    int totalMyRingClash(Board* board);
+    int totalOppRingClash(Board* board);
+    int ringClash(Board* board,int x,int y);
     
 };
 
