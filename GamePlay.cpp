@@ -1764,17 +1764,31 @@ pair<int, string> GamePlay::minValue(Board* board, int alpha, int beta, int dept
 int GamePlay::calcnayaEval(Board* board){
     vector<int> list = calcContinuous(board, true);
     vector<int> list2 = calcContinuous(board, false);
+//0
     int good = 0;
-    for(int i=2;i<5;i++){
-        good+=list[i]*2-list2[i]*2;
+
+    // vector<float> wt {0,1,3,9,27,81,0.5,1.5,4.5,13.5,40.5};
+    vector<float> wt {0,1,3,9,27,81,0.5,1.5,4.5,13.5,40.5};
+
+    vector<float> wt2 (11,0);
+
+    for(int i=0;i<11;i++){
+        wt2[i]=wt[i]*20;
     }
-    good+=(list[5]-list2[5])*10000;
-    good+=(board->myringout - board->oppringout)*200000;
+    for(int i=0;i<6;i++){
+        good+=list[i]*wt[i];
+        good-=list2[i]*wt2[i];
+    }
+    for(int i=6;i<11;i++){
+        good+=list[i]*wt[i];
+        good-=list2[i]*wt2[i];
+    }
+    good += board->myringout*10000 - board->oppringout*200000;
     return good;
 }
 //markers weightage 1,3,9,27,81,81,...
 //ring weightage 0,1,4,13,40,40,...
-int GamePlay::calcEval(Board* board)
+int GamePlay::calcpuranaEval(Board* board)
 {
 
     int m;
@@ -2749,24 +2763,29 @@ vector<int> GamePlay::calcContinuous(Board* board, bool ismyturn){
     if(ismyturn==true) m=2;
     else m=-2;
     int count = 0;
-    vector<int> list(6,0);
+    vector<int> list(11,0);
     // vector<pair<pair<int, int>, pair<int, int> > > goodmarkers;
     int n = 2*size+1;
     // int start =0;
     int startx = 0;
     int starty = 0;
-    int start =0;
+    int start = 0;
     
     for(int x=0;x<n;x++){
         int y=0;
         start=0;
         count=0;
         while(y<n){
-            if(board->b[x][y]!=m){
+            if(board->b[x][y]==(m/2)){
+                count++;
+                list[5+count]++;
+            }
+            else if(board->b[x][y]!=m){
+
                 if(count>=5){
                     // goodmarkers.push_back(make_pair(make_pair(x,start),make_pair(x, y-1)));
                     // goodmarkers.push_back(make_pair(make_pair(x,y-5),make_pair(x, y-1)));
-                    list[5]++;
+                    list[5]+=count-5+1;
                 }
                 else{
                     list[count]++;
@@ -2782,7 +2801,7 @@ vector<int> GamePlay::calcContinuous(Board* board, bool ismyturn){
         if(count>=5){
             // goodmarkers.push_back(make_pair(make_pair(x,start),make_pair(x, y-1)));
                     // goodmarkers.push_back(make_pair(make_pair(x,y-5),make_pair(x, y-1)));
-                list[5]++;
+                list[5]+=count-5+1;
             }
             else    list[count]++;
     }
@@ -2793,11 +2812,15 @@ vector<int> GamePlay::calcContinuous(Board* board, bool ismyturn){
         start=0;
         count=0;
         while(x<n){
-            if(board->b[x][y]!=m){
+            if(board->b[x][y]==(m/2)){
+                count++;
+                list[5+count]++;
+            }
+            else if(board->b[x][y]!=m){
                 if(count>=5){
                     // goodmarkers.push_back(make_pair(make_pair(start,y),make_pair(x-1, y)));
                     // goodmarkers.push_back(make_pair(make_pair(x-5,y),make_pair(x-1, y)));
-                    list[5]++;
+                    list[5]+=count-5+1;;
                 }
                 else list[count]++;
                 count=0;
@@ -2811,7 +2834,7 @@ vector<int> GamePlay::calcContinuous(Board* board, bool ismyturn){
         if(count>=5){
             // goodmarkers.push_back(make_pair(make_pair(start,y),make_pair(x-1, y)));
                     // goodmarkers.push_back(make_pair(make_pair(x-5,y),make_pair(x-1, y)));
-            list[5]++;
+            list[5]+=count-5+1;;
         }
         else list[count]++;
     }
@@ -2823,10 +2846,14 @@ vector<int> GamePlay::calcContinuous(Board* board, bool ismyturn){
         starty=0;
         count=0;
         while(x<n&&y<n){
-            if(board->b[x][y]!=m){
+            if(board->b[x][y]==(m/2)){
+                count++;
+                list[count+5]++;
+            }
+            else if(board->b[x][y]!=m){
                 if(count>=5){
                     // goodmarkers.push_back(make_pair(make_pair(startx,starty),make_pair(x-1, y-1)));
-                    list[5]++;    
+                    list[5]+=count-5+1;;    
                 }
                 else{
                     list[count]++;
@@ -2842,7 +2869,7 @@ vector<int> GamePlay::calcContinuous(Board* board, bool ismyturn){
             y++;
         }
         if(count>=5){
-            list[5]++;
+            list[5]+=count-5+1;;
             // goodmarkers.push_back(make_pair(make_pair(startx,starty),make_pair(x-1, y-1)));
                     // goodmarkers.push_back(make_pair(make_pair(x-5,y-5),make_pair(x-1, y-1)));
         }
@@ -2857,11 +2884,15 @@ vector<int> GamePlay::calcContinuous(Board* board, bool ismyturn){
         starty=j;
         count=0;
         while(x<n&&y<n){
-            if(board->b[x][y]!=m){
+            if(board->b[x][y]==(m/2)){
+                count++;
+                list[5+count]++;
+            }
+            else if(board->b[x][y]!=m){
                 if(count>=5){
                     // goodmarkers.push_back(make_pair(make_pair(startx,starty),make_pair(x-1, y-1)));
                     // goodmarkers.push_back(make_pair(make_pair(x-5,y-5),make_pair(x-1, y-1)));
-                    list[5]++;
+                    list[5]+=count-5+1;;
                 }
                 else{
                     list[count]++;
@@ -2879,7 +2910,7 @@ vector<int> GamePlay::calcContinuous(Board* board, bool ismyturn){
         if(count>=5){
             // goodmarkers.push_back(make_pair(make_pair(startx,starty),make_pair(x-1, y-1)));
                     // goodmarkers.push_back(make_pair(make_pair(x-5,y-5),make_pair(x-1, y-1)));
-            list[5]++;
+            list[5]+=count-5+1;;
         }
         else 
             list[count]++;
