@@ -84,10 +84,12 @@ public:
     pair<int, string> minValue(Board* curboard, int alpha, int beta, int depth);
     string miniMax(Board* curboard, int depth);
     void printMarker(Board* board);
-    int totalMyRingClash(Board* board);
-    int totalOppRingClash(Board* board);
-    int ringClash(Board* board,int x,int y);
-    
+    vector<int> myRingClash(Board* board,int x,int y);
+    vector<int> totalMyRingClash(Board* board);
+    vector<int> totalOppRingClash(Board* board);
+    vector<int> ringClash(Board* board,int x,int y);
+    vector<int > markerSpaceRing(Board* board, int x, int y);
+    vector<int> totalMarkerSpaceRing(Board* board);
 };
 
 

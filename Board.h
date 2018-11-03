@@ -84,7 +84,7 @@ public:
     
     
     double getEval ( );
-
+    Board* flipBoard();
     void setEval(double eval);
     /**
      * Gets the track at the specified index.

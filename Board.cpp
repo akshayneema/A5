@@ -79,6 +79,44 @@ Board* Board::copyBoard()
     return newb;
 }
 
+Board* Board::flipBoard()
+{
+    Board* newb = new Board(size);
+    newb->size = this->size;
+    newb->eval= this->eval;
+    newb->myringout=this->oppringout;
+    newb->oppringout=this->myringout;
+    for(int i=0;i<this->oppringpos.size();i++)
+    {
+        newb->myringpos.push_back(this->oppringpos[i]);
+    }
+    for(int i=0;i<this->myringpos.size();i++)
+    {
+        newb->oppringpos.push_back(this->myringpos[i]);
+    }
+    int r = 2*size+1;
+    int c = 2*size+1; 
+    newb->b = (int **)malloc(r * sizeof(int *)); 
+    for (int i=0; i<r; i++) 
+         newb->b[i] = (int *)malloc(c * sizeof(int));
+    for(int i=0;i<r;i++)
+    {
+        for(int j=0;j<c;j++)
+        {
+            if(this->b[i][j]!=3)
+            {
+                if(this->b[i][j]!=0)
+                    newb->b[i][j]=-1*this->b[i][j];
+                else
+                    newb->b[i][j]=0;
+            }
+            else
+                newb->b[i][j]=3;
+        }
+    }
+    return newb;
+}
+
 void Board::setMyRing(int x,int y)
 {
     b[x][y]=1;

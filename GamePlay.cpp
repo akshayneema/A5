@@ -1426,11 +1426,315 @@ int GamePlay::oppflipsum(Board* board)
     }
     return maxi;
 }
-int GamePlay::ringClash(Board* board,int x,int y)
+vector<int > GamePlay::markerSpaceRing(Board* board, int x, int y) 
+{
+    vector<int > v(3);
+    int ans=0;
+    int count=0;
+    //slope +0
+    for(int i=x+1;i<=2*size;i++)
+    {
+        if(board->b[i][y]==3)
+        {
+            count=0;
+            break;
+        }
+        else
+        {
+            if(board->b[i][y]==0)//empty space
+            {
+                if(board->b[i-1][y]==0 || board->b[i-1][y]==1)
+                {
+
+                }
+                else if(board->b[i-1][y]==-2 || board->b[i-1][y]==2)
+                {
+                    // v.push_back(make_pair(i,y));
+                    break;
+                }
+            }
+            else if(board->b[i][y]==1 || board->b[i][y]==-1)//ring encounter
+            {
+                count=0;
+                break;
+            }
+            else if(board->b[i][y]==2)
+            {
+                count++;
+            }
+            else if(board->b[i][y]==-2)
+            {
+                count=0;
+                break;
+            }
+            
+        }
+    }
+    if(count==4)
+        v[2]++;
+    if(count==3)
+        v[1]++;
+    if(count==2)
+        v[0]++;
+    count=0;
+    //slope -0
+    for(int i=x-1;i>=0;i--)
+    {
+        if(board->b[i][y]==3)
+        {
+            count=0;
+            break;
+        }
+        else
+        {
+            if(board->b[i][y]==0)
+            {
+                if(board->b[i+1][y]==0 || board->b[i+1][y]==1)
+                {
+
+                }
+                else if(board->b[i+1][y]==-2 || board->b[i+1][y]==2)
+                {
+                    // count=0;
+                    break;
+                }
+            }
+            else if(board->b[i][y]==1 || board->b[i][y]==-1)//ring encounter
+            {
+                count=0;
+                break;
+            }
+            else if(board->b[i][y]==2)
+            {
+                count++;
+            }
+            else if(board->b[i][y]==-2)
+            {
+                count=0;
+                break;
+            }
+        }
+    }
+    if(count==4)
+        v[2]++;
+    if(count==3)
+        v[1]++;
+    if(count==2)
+        v[0]++;
+    count=0;
+    //slope +infi
+    for(int i=y+1;i<=2*size;i++)
+    {
+        if(board->b[x][i]==3)
+        {
+            count=0;
+            break;
+        }
+        else
+        {
+            if(board->b[x][i]==0)
+            {
+                if(board->b[x][i-1]==0 || board->b[x][i-1]==1)
+                {
+
+                }
+                else if(board->b[x][i-1]==-2 || board->b[x][i-1]==2)
+                {
+                    // v.push_back(make_pair(x,i));
+                    // count=0;
+                    break;
+                }
+            }
+            else if(board->b[x][i]==1 || board->b[x][i]==-1)//ring encounter
+            {
+                count=0;
+                break;
+            }
+            else if(board->b[x][i]==2)
+            {
+                count++;
+            }
+            else if(board->b[x][i]==-2)
+            {
+                count=0;
+                break;
+            }
+        }
+    }
+    if(count==4)
+        v[2]++;
+    if(count==3)
+        v[1]++;
+    if(count==2)
+        v[0]++;
+    count=0;
+    //slope -infi
+    for(int i=y-1;i>=0;i--)
+    {
+        if(board->b[x][i]==3)
+        {
+            count=0;
+            break;
+        }
+        else
+        {
+            if(board->b[x][i]==0)
+            {
+                if(board->b[x][i+1]==0 || board->b[x][i+1]==1)
+                {
+                    
+                }
+                else if(board->b[x][i+1]==-2 || board->b[x][i+1]==2)
+                {
+                    // v.push_back(make_pair(x,i));
+                    // count=0;
+                    break;
+                }
+            }
+            else if(board->b[x][i]==1 || board->b[x][i]==-1)//ring encounter
+            {
+                count=0;
+                break;
+            }
+            else if(board->b[x][i]==2)
+            {
+                count++;
+            }
+            else if(board->b[x][i]==-2)
+            {
+                count=0;
+                break;
+            }
+        }
+    }
+    //slope +1
+    if(count==4)
+        v[2]++;
+    if(count==3)
+        v[1]++;
+    if(count==2)
+        v[0]++;
+    count=0;
+    int i=x+1;
+    int j=y+1;
+    while(i<=2*size && j<=2*size)
+    {
+        if(board->b[i][j]==3)
+        {
+            count=0;
+            break;
+        }
+        else
+        {
+            if(board->b[i][j]==0)
+            {
+                if(board->b[i-1][j-1]==0 || board->b[i-1][j-1]==1)
+                {
+                    
+                }
+                else if(board->b[i-1][j-1]==-2 || board->b[i-1][j-1]==2)
+                {
+                    // v.push_back(make_pair(i,j));
+                    // count=0;
+                    break;
+                }
+            }
+            else if(board->b[i][j]==1 || board->b[i][j]==-1)//ring encounter
+            {
+                count=0;
+                break;
+            }
+            else if(board->b[i][j]==2)
+            {
+                count++;
+            }
+            else if(board->b[i][j]==-2)
+            {
+                count=0;
+                break;
+            }
+        }
+        i++;
+        j++;
+    }
+    if(count==4)
+        v[2]++;
+    if(count==3)
+        v[1]++;
+    if(count==2)
+        v[0]++;
+    count=0;
+    i=x-1;
+    j=y-1;
+    while(i>=0 && j>=0)
+    {
+        if(board->b[i][j]==3)
+        {
+            count=0;
+            break;
+        }
+        else
+        {
+            if(board->b[i][j]==0)
+            {
+                if(board->b[i+1][j+1]==0 || board->b[i+1][j+1]==1)
+                {
+                    
+                }
+                else if(board->b[i+1][j+1]==-2 || board->b[i+1][j+1]==2)
+                {
+                    // v.push_back(make_pair(i,j));
+                    // count=0;
+                    break;
+                }
+            }
+            else if(board->b[i][j]==1 || board->b[i][j]==-1)//ring encounter
+            {
+                count=0;
+                break;
+            }
+            else if(board->b[i][j]==2)
+            {
+                count++;
+            }
+            else if(board->b[i][j]==-2)
+            {
+                count=0;
+                break;
+            }
+        }
+        i--;
+        j--;
+    }
+    if(count==4)
+        v[2]++;
+    if(count==3)
+        v[1]++;
+    if(count==2)
+        v[0]++;
+    return v;
+}
+vector<int> GamePlay::totalMarkerSpaceRing(Board* board)
+{
+    vector<int> maxi(3);
+    for(auto i: board->oppringpos)
+    {
+        // sum+=oppflip(board,i.first,i.second);
+        // maxi=max(maxi,maxoppflip(board,i.first,i.second));
+        vector<int> v=markerSpaceRing(board,i.first,i.second);
+        for(int i=0;i<3;i++)
+            maxi[i]+=v[i];
+    }
+    return maxi;
+}
+vector<int> GamePlay::ringClash(Board* board,int x,int y)
 {
     // vector<pair<int,int> > v;
     // int maxi=-10;
     //slope +0
+    vector<int> v(3);
+
+    int ans=0;
     int count=0;
     bool clash=true;
     for(int i=x+1;i<=2*size;i++)
@@ -1438,285 +1742,504 @@ int GamePlay::ringClash(Board* board,int x,int y)
         // int count=0;
         if(board->b[i][y]==3)
         {
-            // count=0;
+            count=0;
             break;
         }
         else
         {
             if(board->b[i][y]==0)//empty space
             {
-                if(board->b[i-1][y]==0 || board->b[i-1][y]==-1 || board->b[i-1][y]==1)
-                {
-                    clash=false;
-                    break;
-                }
-                    // v.push_back(make_pair(i,y));
-                else if(board->b[i-1][y]==-2 || board->b[i-1][y]==2)
-                {
-                    // v.push_back(make_pair(i,y));
-                    // if(board->b[i-1][y]==-2)
-                    //     count++;
-                    // else
-                    //     count--;
-                    clash=false;
-                    break;
-                }
+                break;
             }
             else if(board->b[i][y]==1 || board->b[i][y]==-1)//ring encounter
             {
-                // count=0;
+                count=0;
                 break;
             }
-            // else
-            // {
-            //     if(board->b[i][y]==-2)
-            //             count++;
-            //         else
-            //             count--;
-            // }
+            else if(board->b[i][y]==2)
+            {
+                count++;
+            }
+            else if(board->b[i][y]==-2)
+            {
+                count=0;
+                break;
+            }
         }
     }
-    if(clash==true)
-        count++;
+
+    if(count==4)
+        v[2]++;
+    if(count==3)
+        v[1]++;
+    if(count==2)
+        v[0]++;
     // maxi=max(maxi,-count);
     // count=0;
     //slope -0
-    clash=true;
+    count=0;
     for(int i=x-1;i>=0;i--)
     {
         // count=0;
         if(board->b[i][y]==3)
         {
-            // count=0;
+            count=0;
             break;
         }
         else
         {
             if(board->b[i][y]==0)
             {
-                if(board->b[i+1][y]==0 || board->b[i+1][y]==-1)
-                {
-                    clash=false;
-                    break;
-                }
-                    // v.push_back(make_pair(i,y));
-                else if(board->b[i+1][y]==-2 || board->b[i+1][y]==2)
-                {
-                    // v.push_back(make_pair(i,y));
-                    // if(board->b[i+1][y]==-2)
-                    //     count++;
-                    // else
-                    //     count--;
-                    clash=false;
-                    break;
-                }
+                break;
             }
             else if(board->b[i][y]==1 || board->b[i][y]==-1)//ring encounter
             {
-                // count=0;
+                count=0;
                 break;
             }
-
+            else if(board->b[i][y]==-2)
+            {
+                count=0;
+                break;
+            }
+            else
+                count++;
         }
     }
     //slope +infi
-    if(clash==true)
-        count++;
+    if(count==4)
+        v[2]++;
+    if(count==3)
+        v[1]++;
+    if(count==2)
+        v[0]++;
     // maxi=max(maxi,-count);
     // count=0;
-    clash=true;
+    count=0;
     for(int i=y+1;i<=2*size;i++)
     {
         if(board->b[x][i]==3)
         {
-            // count=0;
+            count=0;
             break;
         }
         else
         {
             if(board->b[x][i]==0)
             {
-                if(board->b[x][i-1]==0 || board->b[x][i-1]==-1)
-                {
-                    clash=false;
-                    break;
-                }
-                    // v.push_back(make_pair(x,i));
-                else if(board->b[x][i-1]==-2 || board->b[x][i-1]==2)
-                {
-                    // v.push_back(make_pair(x,i));
-                    // if(board->b[i+1][y]==-2)
-                    //     count++;
-                    // else
-                    //     count--;
-                    clash=false;
-                    break;
-                }
+                break;
             }
             else if(board->b[x][i]==1 || board->b[x][i]==-1)//ring encounter
             {
-                // count=0;
+                count=0;
                 break;
             }
+            else if(board->b[x][i]==-2)
+            {
+                count=0;
+                break;
+            }
+            else
+                count++;
         }
     }
     //slope -infi
     // maxi=max(maxi,-count);
     // count=0;
-    if(clash==true)
-        count++;
-    clash=true;
+    if(count==4)
+        v[2]++;
+    if(count==3)
+        v[1]++;
+    if(count==2)
+        v[0]++;
+    count=0;
     for(int i=y-1;i>=0;i--)
     {
         if(board->b[x][i]==3)
         {
-            // count=0;
+            count=0;
             break;
         }
         else
         {
             if(board->b[x][i]==0)
             {
-                if(board->b[x][i+1]==0 || board->b[x][i+1]==-1)
-                    // v.push_back(make_pair(x,i));
-                    {
-                        clash=false;
-                        break;
-                    }
-                else if(board->b[x][i+1]==-2 || board->b[x][i+1]==2)
-                {
-                    // v.push_back(make_pair(x,i));
-                    // if(board->b[x][i+1]==-2)
-                    //     count++;
-                    // else
-                    //     count--;
-                    clash=false;
-                    break;
-                }
+                 break;
             }
             else if(board->b[x][i]==1 || board->b[x][i]==-1)//ring encounter
             {
-                // count=0;
+                count=0;
                 break;
             }
+            else if(board->b[x][i]==-2)
+            {
+                count=0;
+                break;
+            }
+            else
+                count++;
         }
     }
     //slope +1
     // maxi=max(maxi,-count);
     // count=0;
-    if(clash==true)
-        count++;
-    clash=true;
+    if(count==4)
+        v[2]++;
+    if(count==3)
+        v[1]++;
+    if(count==2)
+        v[0]++;
+    count=0;
     int i=x+1;
     int j=y+1;
     while(i<=2*size && j<=2*size)
     {
         if(board->b[i][j]==3)
         {
-            // count=0;
+            count=0;
             break;
         }
         else
         {
             if(board->b[i][j]==0)
             {
-                if(board->b[i-1][j-1]==0 || board->b[i-1][j-1]==-1)
-                    // v.push_back(make_pair(i,j));
-                    {
-                        clash=false;
-                        break;
-                    }
-                else if(board->b[i-1][j-1]==-2 || board->b[i-1][j-1]==2)
-                {
-                    // v.push_back(make_pair(i,j));
-                    // if(board->b[i-1][j-1]==-2)
-                    //     count++;
-                    // else
-                    //     count--;
-                    clash=false;
-                    break;
-                }
+                break;
             }
             else if(board->b[i][j]==1 || board->b[i][j]==-1)//ring encounter
             {
-                // count=0;
+                count=0;
                 break;
             }
+            else if(board->b[i][j]==-2)
+            {
+                count=0;
+                break;
+            }
+            else
+                count++;
         }
         i++;
         j++;
     }
     // maxi=max(maxi,-count);
     // count=0;
-    if(clash==true)
-        count++;
-    clash=true;
+    if(count==4)
+        v[2]++;
+    if(count==3)
+        v[1]++;
+    if(count==2)
+        v[0]++;
+    count=0;
     i=x-1;
     j=y-1;
     while(i>=0 && j>=0)
     {
         if(board->b[i][j]==3)
         {
-            // count=0;
+            count=0;
             break;
         }
         else
         {
             if(board->b[i][j]==0)
             {
-                if(board->b[i+1][j+1]==0 || board->b[i+1][j+1]==-1)
-                    // v.push_back(make_pair(i,j));
-                    {
-                        clash=false;
-                        break;
-                    }
-                else if(board->b[i+1][j+1]==-2 || board->b[i+1][j+1]==2)
-                {
-                    // v.push_back(make_pair(i,j));
-                    // if(board->b[i-1][j-1]==-2)
-                    //     count++;
-                    // else
-                    //     count--;
-                    clash=false;
-                    break;
-                }
+                break;
             }
             else if(board->b[i][j]==1 || board->b[i][j]==-1)//ring encounter
             {
-                // count=0;
+                count=0;
                 break;
             }
+            else if(board->b[i][j]==-2)
+            {
+                count=0;
+                break;
+            }
+            else
+                count++;
         }
         i--;
         j--;
     }
     // maxi=max(maxi,-count);
-    if(clash==true)
-        count++;
-    return count;
+    if(count==4)
+        v[2]++;
+    if(count==3)
+        v[1]++;
+    if(count==2)
+        v[0]++;
+    return v;
 }
-int GamePlay::totalOppRingClash(Board* board)
+vector<int> GamePlay::totalOppRingClash(Board* board)
 {
-    int maxi=0;
+    vector<int> maxi(3);
     for(auto i: board->oppringpos)
     {
         // sum+=oppflip(board,i.first,i.second);
         // maxi=max(maxi,maxoppflip(board,i.first,i.second));
-        maxi+=ringClash(board,i.first,i.second);
+        vector<int> v=ringClash(board,i.first,i.second);
+        for(int i=0;i<3;i++)
+            maxi[i]+=v[i];
     }
     return maxi;
 }
-int GamePlay::totalMyRingClash(Board* board)
+vector<int> GamePlay::myRingClash(Board* board,int x,int y)
 {
-    int maxi=0;
+    // vector<pair<int,int> > v;
+    // int maxi=-10;
+    //slope +0
+    vector<int> v(3);
+
+    int ans=0;
+    int count=0;
+    bool clash=true;
+    for(int i=x+1;i<=2*size;i++)
+    {
+        // int count=0;
+        if(board->b[i][y]==3)
+        {
+            count=0;
+            break;
+        }
+        else
+        {
+            if(board->b[i][y]==0)//empty space
+            {
+                break;
+            }
+            else if(board->b[i][y]==1 || board->b[i][y]==-1)//ring encounter
+            {
+                count=0;
+                break;
+            }
+            else if(board->b[i][y]==-2)
+            {
+                count++;
+            }
+            else if(board->b[i][y]==2)
+            {
+                count=0;
+                break;
+            }
+        }
+    }
+
+    if(count==4)
+        v[2]++;
+    if(count==3)
+        v[1]++;
+    if(count==2)
+        v[0]++;
+    // maxi=max(maxi,-count);
+    // count=0;
+    //slope -0
+    count=0;
+    for(int i=x-1;i>=0;i--)
+    {
+        // count=0;
+        if(board->b[i][y]==3)
+        {
+            count=0;
+            break;
+        }
+        else
+        {
+            if(board->b[i][y]==0)
+            {
+                break;
+            }
+            else if(board->b[i][y]==1 || board->b[i][y]==-1)//ring encounter
+            {
+                count=0;
+                break;
+            }
+            else if(board->b[i][y]==2)
+            {
+                count=0;
+                break;
+            }
+            else
+                count++;
+        }
+    }
+    //slope +infi
+    if(count==4)
+        v[2]++;
+    if(count==3)
+        v[1]++;
+    if(count==2)
+        v[0]++;
+    // maxi=max(maxi,-count);
+    // count=0;
+    count=0;
+    for(int i=y+1;i<=2*size;i++)
+    {
+        if(board->b[x][i]==3)
+        {
+            count=0;
+            break;
+        }
+        else
+        {
+            if(board->b[x][i]==0)
+            {
+                break;
+            }
+            else if(board->b[x][i]==1 || board->b[x][i]==-1)//ring encounter
+            {
+                count=0;
+                break;
+            }
+            else if(board->b[x][i]==2)
+            {
+                count=0;
+                break;
+            }
+            else
+                count++;
+        }
+    }
+    //slope -infi
+    // maxi=max(maxi,-count);
+    // count=0;
+    if(count==4)
+        v[2]++;
+    if(count==3)
+        v[1]++;
+    if(count==2)
+        v[0]++;
+    count=0;
+    for(int i=y-1;i>=0;i--)
+    {
+        if(board->b[x][i]==3)
+        {
+            count=0;
+            break;
+        }
+        else
+        {
+            if(board->b[x][i]==0)
+            {
+                 break;
+            }
+            else if(board->b[x][i]==1 || board->b[x][i]==-1)//ring encounter
+            {
+                count=0;
+                break;
+            }
+            else if(board->b[x][i]==2)
+            {
+                count=0;
+                break;
+            }
+            else
+                count++;
+        }
+    }
+    //slope +1
+    // maxi=max(maxi,-count);
+    // count=0;
+    if(count==4)
+        v[2]++;
+    if(count==3)
+        v[1]++;
+    if(count==2)
+        v[0]++;
+    count=0;
+    int i=x+1;
+    int j=y+1;
+    while(i<=2*size && j<=2*size)
+    {
+        if(board->b[i][j]==3)
+        {
+            count=0;
+            break;
+        }
+        else
+        {
+            if(board->b[i][j]==0)
+            {
+                break;
+            }
+            else if(board->b[i][j]==1 || board->b[i][j]==-1)//ring encounter
+            {
+                count=0;
+                break;
+            }
+            else if(board->b[i][j]==2)
+            {
+                count=0;
+                break;
+            }
+            else
+                count++;
+        }
+        i++;
+        j++;
+    }
+    // maxi=max(maxi,-count);
+    // count=0;
+    if(count==4)
+        v[2]++;
+    if(count==3)
+        v[1]++;
+    if(count==2)
+        v[0]++;
+    count=0;
+    i=x-1;
+    j=y-1;
+    while(i>=0 && j>=0)
+    {
+        if(board->b[i][j]==3)
+        {
+            count=0;
+            break;
+        }
+        else
+        {
+            if(board->b[i][j]==0)
+            {
+                break;
+            }
+            else if(board->b[i][j]==1 || board->b[i][j]==-1)//ring encounter
+            {
+                count=0;
+                break;
+            }
+            else if(board->b[i][j]==2)
+            {
+                count=0;
+                break;
+            }
+            else
+                count++;
+        }
+        i--;
+        j--;
+    }
+    // maxi=max(maxi,-count);
+    if(count==4)
+        v[2]++;
+    if(count==3)
+        v[1]++;
+    if(count==2)
+        v[0]++;
+    return v;
+}
+vector<int> GamePlay::totalMyRingClash(Board* board)
+{
+    vector<int> maxi(3);
     for(auto i: board->myringpos)
     {
         // sum+=oppflip(board,i.first,i.second);
         // maxi=max(maxi,maxoppflip(board,i.first,i.second));
-        maxi+=ringClash(board,i.first,i.second);
+        vector<int> v=myRingClash(board,i.first,i.second);
+        for(int i=0;i<3;i++)
+            maxi[i]+=v[i];
     }
     return maxi;
 }
+
 vector<pair<int,int> > GamePlay::neighbourPosition(Board* board, int x, int y) 
 {
     vector<pair<int,int> > v;
@@ -1954,22 +2477,6 @@ string GamePlay::nextMove()
     }
 
 }
-
-// double GamePlay::miniMax(Board curboard, int depth, bool me){
-//     if(depth >= MAX_DEPTH){
-//         return calcEval(curboard);
-//     }
-//     int sign =-1;
-//     vector<string> neighbours = GamePlay::neighbours(curboard, me);
-//     float posValue = -INT_MAX;
-//     if(me) sign =1;
-//     for (string n : neighbours) {
-//         Board newBoard = oppMove(curboard, me, n);
-//         float newValue = sign*miniMax(newBoard, depth+1, not me);
-//         if ( newValue > posValue ) posValue = newValue;
-//     }
-//   return sign*posValue;
-// }
 string GamePlay::miniMaxAlt()
 {
     vector<string> list= neighbours(curboard,true);
@@ -2006,8 +2513,9 @@ string GamePlay::miniMax(Board* board, int depth){
 pair<int, string> GamePlay::maxValue(Board* board, int alpha, int beta, int depth){
     // cerr<<"---------------- at level"<<depth<<"\n";
     if(depth>=4){
+        Board* newboard = board->flipBoard();
         string s = "";
-        return make_pair(calcEval(board), s);
+        return make_pair(calcEval(newboard), s);
     }
     float posValue = -INT_MAX;
     string move;
@@ -2016,7 +2524,8 @@ pair<int, string> GamePlay::maxValue(Board* board, int alpha, int beta, int dept
     for (string n : neighbours) {
         Board* newboard = board->copyBoard();
         ChangeBoard(true, newboard, n);
-        pair<int, string> newValue = minValue(newboard, alpha, beta, depth+1);
+        newboard = newboard->flipBoard(); 
+        pair<int, string> newValue = maxValue(newboard, alpha, beta, depth+1);
         cerr<<n<<"--"<<hi<<"/"<<neighbours.size()<<"-----------"<<newValue.first<<endl;
         
         if ( newValue.first > posValue ) {
@@ -2131,15 +2640,19 @@ int GamePlay::calcEval(Board* board)
                     }
                     else if(count==2){
                         goodness+=4;
+                        // goodness+=5;
                     }
                     else if(count==3){
                         goodness+=10;
+                        // goodness+=40;
                     }                
                     else if(count==4){
                         goodness+=200;
+                        // goodness+=1000;
                     }
                     else if(count>=5){
                         goodness+=5000;
+                        // goodness+=25000;
                     }
                 }  
                 if(board->b[x][y]==1)
@@ -2152,12 +2665,15 @@ int GamePlay::calcEval(Board* board)
                     }
                     else if(count==3){
                         goodness+=5;
+                        // goodness+=20;
                     }                
                     else if(count==4){
                         goodness+=100;
+                        // goodness+=500;
                     }
                     else if(count>=5){
                         goodness+=2500;
+                        // goodness+=12500;
                     }
                 }
             }
@@ -2255,15 +2771,19 @@ int GamePlay::calcEval(Board* board)
                     }
                     else if(count==2){
                         goodness+=4;
+                        // goodness+=5;
                     }
                     else if(count==3){
                         goodness+=10;
+                        // goodness+=40;
                     }                
                     else if(count==4){
                         goodness+=200;
+                        // goodness+=1000;
                     }
                     else if(count>=5){
                         goodness+=5000;
+                        // goodness+=25000;
                     }
                 }  
                 if(board->b[x][y]==1)
@@ -2276,12 +2796,15 @@ int GamePlay::calcEval(Board* board)
                     }
                     else if(count==3){
                         goodness+=5;
+                        // goodness+=20;
                     }                
                     else if(count==4){
                         goodness+=100;
+                        // goodness+=500;
                     }
                     else if(count>=5){
                         goodness+=2500;
+                        // goodness+=12500;
                     }
                 }
             }
@@ -2383,15 +2906,19 @@ int GamePlay::calcEval(Board* board)
                     }
                     else if(count==2){
                         goodness+=4;
+                        // goodness+=5;
                     }
                     else if(count==3){
                         goodness+=10;
+                        // goodness+=40;
                     }                
                     else if(count==4){
                         goodness+=200;
+                        // goodness+=1000;
                     }
                     else if(count>=5){
                         goodness+=5000;
+                        // goodness+=25000;
                     }
                 }  
                 if(board->b[x][y]==1)
@@ -2404,12 +2931,15 @@ int GamePlay::calcEval(Board* board)
                     }
                     else if(count==3){
                         goodness+=5;
+                        // goodness+=20;
                     }                
                     else if(count==4){
                         goodness+=100;
+                        // goodness+=500;
                     }
                     else if(count>=5){
                         goodness+=2500;
+                        // goodness+=12500;
                     }
                 }
             }
@@ -2509,15 +3039,19 @@ int GamePlay::calcEval(Board* board)
                     }
                     else if(count==2){
                         goodness+=4;
+                        // goodness+=5;
                     }
                     else if(count==3){
                         goodness+=10;
+                        // goodness+=40;
                     }                
                     else if(count==4){
                         goodness+=200;
+                        // goodness+=1000;
                     }
                     else if(count>=5){
                         goodness+=5000;
+                        // goodness+=25000;
                     }
                 }  
                 if(board->b[x][y]==1)
@@ -2530,12 +3064,15 @@ int GamePlay::calcEval(Board* board)
                     }
                     else if(count==3){
                         goodness+=5;
+                        // goodness+=20;
                     }                
                     else if(count==4){
                         goodness+=100;
+                        // goodness+=500;
                     }
                     else if(count>=5){
                         goodness+=2500;
+                        // goodness+=12500;
                     }
                 }
             }
@@ -3051,8 +3588,20 @@ int GamePlay::calcEval(Board* board)
 
     // goodness-=50*oppflipsum(board);
     //// consider for gaining a ring out
-    // goodness+=(totalOppRingClash(board)/(5-board->oppringout))*1000;
+    vector<int> v=totalOppRingClash(board);
+    goodness-=v[2]*14000;
+    goodness-=v[1]*700;
+    goodness-=v[0]*35;
+    // v=totalMyRingClash(board);
+    // goodness+=v[2]*2700;
+    // goodness+=v[1]*120;
+    // goodness+=v[0]*10;
+    v=totalMarkerSpaceRing(board);
+    goodness-=v[2]*800;
+    goodness-=v[1]*40;
+    goodness-=v[0]*2;
     // goodness-=(totalMyRingClash(board)/(5-board->myringout))*400;
+
     goodness+=board->myringout*200000;
     // cout<<"Ring+ ->"<<goodness<<endl;
     goodness-=board->oppringout*200000;
