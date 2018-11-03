@@ -2071,15 +2071,26 @@ int GamePlay::calcnayaEval(Board* board){
         good-=list2[i]*wt2[i];
     }
     for(int i=6;i<11;i++){
-        good+=list[i]*wt[i];
-        good-=list2[i]*wt2[i];
+        good-=list[i]*wt[i];
+        good+=list2[i]*wt2[i];
     }
-    good += board->myringout*10000 - board->oppringout*200000;
+    int myrings = board->myringout;
+    int oprings = board->oppringout;
+    if(myrings<3){
+        good+=myrings*2000;
+    }
+    else good+=myrings*200000;
+
+    if(oprings<3){
+        good-=oprings*5000;
+    }
+    else good-=oprings*50000;
+    // good += board->myringout*10000 - board->oppringout*50000;
     return good;
 }
 //markers weightage 1,3,9,27,81,81,...
 //ring weightage 0,1,4,13,40,40,...
-int GamePlay::calcpuranaEval(Board* board)
+int GamePlay::calcEval(Board* board)
 {
 
     int m;
@@ -3071,17 +3082,15 @@ vector<int> GamePlay::calcContinuous(Board* board, bool ismyturn){
         while(y<n){
             if(board->b[x][y]==(m/2)){
                 count++;
-                list[5+count]++;
+                list[min(5+count,10)]++;
             }
             else if(board->b[x][y]!=m){
-
-                if(count>=5){
+                for(int i=1;i<=min(count,5);i++)
+                    list[i]++;
+                if(count>5){
                     // goodmarkers.push_back(make_pair(make_pair(x,start),make_pair(x, y-1)));
                     // goodmarkers.push_back(make_pair(make_pair(x,y-5),make_pair(x, y-1)));
-                    list[5]+=count-5+1;
-                }
-                else{
-                    list[count]++;
+                    list[5]+=count-5;
                 }
                 count=0;
                 start=y+1;
@@ -3091,12 +3100,13 @@ vector<int> GamePlay::calcContinuous(Board* board, bool ismyturn){
             }
         y++;
         }
-        if(count>=5){
+        for(int i=1;i<=min(count,5);i++)
+            list[i]++;
+        if(count>5){
             // goodmarkers.push_back(make_pair(make_pair(x,start),make_pair(x, y-1)));
                     // goodmarkers.push_back(make_pair(make_pair(x,y-5),make_pair(x, y-1)));
-                list[5]+=count-5+1;
+                list[5]+=count-5;
             }
-            else    list[count]++;
     }
 
     
@@ -3107,15 +3117,16 @@ vector<int> GamePlay::calcContinuous(Board* board, bool ismyturn){
         while(x<n){
             if(board->b[x][y]==(m/2)){
                 count++;
-                list[5+count]++;
+                list[min(5+count,10)]++;
             }
             else if(board->b[x][y]!=m){
-                if(count>=5){
+                for(int i=1;i<=min(count,5);i++)
+                    list[i]++;
+                if(count>5){
                     // goodmarkers.push_back(make_pair(make_pair(start,y),make_pair(x-1, y)));
                     // goodmarkers.push_back(make_pair(make_pair(x-5,y),make_pair(x-1, y)));
-                    list[5]+=count-5+1;;
+                    list[5]+=count-5;
                 }
-                else list[count]++;
                 count=0;
                 start=x+1;
             }
@@ -3124,12 +3135,14 @@ vector<int> GamePlay::calcContinuous(Board* board, bool ismyturn){
             }
         x++;
         }
-        if(count>=5){
+        for(int i=1;i<=min(count,5);i++)
+            list[i]++;
+        if(count>5){
             // goodmarkers.push_back(make_pair(make_pair(start,y),make_pair(x-1, y)));
                     // goodmarkers.push_back(make_pair(make_pair(x-5,y),make_pair(x-1, y)));
-            list[5]+=count-5+1;;
+            list[5]+=count-5;
         }
-        else list[count]++;
+        // else list[count]++;
     }
    
     for(int i=5;i>=0;i--){  
@@ -3141,15 +3154,14 @@ vector<int> GamePlay::calcContinuous(Board* board, bool ismyturn){
         while(x<n&&y<n){
             if(board->b[x][y]==(m/2)){
                 count++;
-                list[count+5]++;
+                list[min(5+count,10)]++;
             }
             else if(board->b[x][y]!=m){
-                if(count>=5){
+                for(int i=1;i<=min(count,5);i++)
+                    list[i]++;
+                if(count>5){
                     // goodmarkers.push_back(make_pair(make_pair(startx,starty),make_pair(x-1, y-1)));
-                    list[5]+=count-5+1;;    
-                }
-                else{
-                    list[count]++;
+                    list[5]+=count-5;    
                 }
                 count=0;
                 startx=x+1;
@@ -3161,13 +3173,12 @@ vector<int> GamePlay::calcContinuous(Board* board, bool ismyturn){
             x++;
             y++;
         }
-        if(count>=5){
-            list[5]+=count-5+1;;
+        for(int i=1;i<=min(count,5);i++)
+            list[i]++;
+        if(count>5){
+            list[5]+=count-5;
             // goodmarkers.push_back(make_pair(make_pair(startx,starty),make_pair(x-1, y-1)));
                     // goodmarkers.push_back(make_pair(make_pair(x-5,y-5),make_pair(x-1, y-1)));
-        }
-        else{
-            list[count]++;
         }
     }
     for(int j=1;j<=5;j++){
@@ -3179,16 +3190,15 @@ vector<int> GamePlay::calcContinuous(Board* board, bool ismyturn){
         while(x<n&&y<n){
             if(board->b[x][y]==(m/2)){
                 count++;
-                list[5+count]++;
+                list[min(5+count,10)]++;
             }
             else if(board->b[x][y]!=m){
-                if(count>=5){
+                for(int i=1;i<=min(count,5);i++)
+                    list[i]++;
+                if(count>5){
                     // goodmarkers.push_back(make_pair(make_pair(startx,starty),make_pair(x-1, y-1)));
                     // goodmarkers.push_back(make_pair(make_pair(x-5,y-5),make_pair(x-1, y-1)));
-                    list[5]+=count-5+1;;
-                }
-                else{
-                    list[count]++;
+                    list[5]+=count-5;
                 }
                 count=0;
                 startx=x+1;
@@ -3200,13 +3210,13 @@ vector<int> GamePlay::calcContinuous(Board* board, bool ismyturn){
             x++;
             y++;
         }
-        if(count>=5){
+        for(int i=1;i<=min(count,5);i++)
+            list[i]++;
+        if(count>5){
             // goodmarkers.push_back(make_pair(make_pair(startx,starty),make_pair(x-1, y-1)));
                     // goodmarkers.push_back(make_pair(make_pair(x-5,y-5),make_pair(x-1, y-1)));
-            list[5]+=count-5+1;;
+            list[5]+=count-5;
         }
-        else 
-            list[count]++;
     }
     return list;
 }
