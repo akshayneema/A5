@@ -115,6 +115,9 @@ int main(int argc, char** argv) {
     // s=g->nextMove();
     // g->ChangeBoard(true, g->curboard, s);
     // cout<<"-----------"<<s<<"\n";
+
+//////////////dieeeeeee////////////////////
+    
 // g->ChangeBoard(false, g->curboard, "P 1 2");g->curboard->printBoard();
 // g->ChangeBoard(true, g->curboard,"P 5 9");g->curboard->printBoard();
 // g->ChangeBoard(false, g->curboard, "P 2 8");g->curboard->printBoard();
@@ -126,12 +129,14 @@ int main(int argc, char** argv) {
 // g->ChangeBoard(false, g->curboard, "P 4 11");g->curboard->printBoard();
 // g->ChangeBoard(true, g->curboard,"P 2 10");g->curboard->printBoard();
 // g->ChangeBoard(false, g->curboard, "S 3 10 M 2 5");g->curboard->printBoard();
+// string mymove = g->nextMove();
 // g->ChangeBoard(true, g->curboard,"S 5 9 M 5 8");g->curboard->printBoard();
 // g->ChangeBoard(false, g->curboard, "S 1 2 M 1 3");g->curboard->printBoard();
 // g->ChangeBoard(true, g->curboard,"S 4 21 M 5 27");g->curboard->printBoard();
 // g->ChangeBoard(false, g->curboard, "S 1 3 M 1 0");g->curboard->printBoard();
 // g->ChangeBoard(true, g->curboard,"S 4 18 M 4 19");g->curboard->printBoard();
 // g->ChangeBoard(false, g->curboard, "S 1 0 M 3 16");g->curboard->printBoard();
+// mymove = g->nextMove();
 // g->ChangeBoard(true, g->curboard,"S 3 2 M 4 2");g->curboard->printBoard();
 // g->ChangeBoard(false, g->curboard, "S 2 5 M 3 5");g->curboard->printBoard();
 // g->ChangeBoard(true, g->curboard,"S 2 10 M 2 9");g->curboard->printBoard();
@@ -163,6 +168,8 @@ int main(int argc, char** argv) {
 // {
 //     cout<<l<<endl;
 // }
+
+//////////////dieeeeeee////////////////////
 // g->ChangeBoard(false,g->curboard, "P 2 4");
 // g->ChangeBoard(true, g->curboard, "P 5 9");
 // g->ChangeBoard(false,g->curboard, "P 1 4");
@@ -265,7 +272,45 @@ int main(int argc, char** argv) {
 // cout<<g->nextMove();
 // cout<<g->miniMaxAlt();
 
+    ///dont give me some space
+//     g->ChangeBoard(true, g->curboard, "P 0 0");
+// g->ChangeBoard(false, g->curboard, "P 1 1");
+// g->ChangeBoard(true, g->curboard, "P 1 0");
+// g->ChangeBoard(false, g->curboard, "P 1 3");
+// g->ChangeBoard(true, g->curboard, "P 1 2");
+// g->ChangeBoard(false, g->curboard, "P 1 5");
+// g->ChangeBoard(true, g->curboard, "P 2 5");
+// g->ChangeBoard(false, g->curboard, "P 2 4");
+// g->ChangeBoard(true, g->curboard, "P 3 7");
+// g->ChangeBoard(false, g->curboard, "P 1 4");
+// g->ChangeBoard(true, g->curboard, "S 1 2 M 2 3");
+// g->ChangeBoard(false, g->curboard, "S 1 4 M 4 13");
+// g->ChangeBoard(true, g->curboard, "S 3 7 M 3 8");
+// g->ChangeBoard(false, g->curboard, "S 4 13 M 3 9");
+// g->curboard->printBoard();
+//             string mymove = g->nextMove();
+// g->curboard->printBoard();
+            
 
+
+// ////
+// g->ChangeBoard(true, g->curboard, "S 2 3 M 3 4");
+// g->ChangeBoard(false, g->curboard, "S 2 4 M 4 10");
+// g->ChangeBoard(true, g->curboard, "S 2 5 M 4 9");
+// g->ChangeBoard(false, g->curboard, "S 4 10 M 2 2");
+// g->ChangeBoard(true, g->curboard, "S 4 9 M 3 6");
+// g->ChangeBoard(false, g->curboard, "S 1 1 M 3 5");
+// g->ChangeBoard(true, g->curboard, "S 3 8 M 2 6");
+// g->ChangeBoard(false, g->curboard, "S 3 9 M 4 11");
+// g->ChangeBoard(true, g->curboard, "S 1 0 M 2 1");
+// g->ChangeBoard(false, g->curboard, "S 4 11 M 5 14");
+// g->ChangeBoard(true, g->curboard, "S 2 6 M 3 10");
+// g->ChangeBoard(false, g->curboard, "S 1 3 M 5 11");
+// g->ChangeBoard(true, g->curboard, "S 3 10 M 5 13");
+// g->ChangeBoard(false, g->curboard, "S 3 5 M 4 7");
+// g->ChangeBoard(true, g->curboard, "S 0 0 M 2 8");
+// g->ChangeBoard(false, g->curboard, "S 1 5 M 2 7");
+    ///give me some space
    cin >> player_id >> board_size >> time_limit;
     cin.ignore();
     if(player_id == 2) {

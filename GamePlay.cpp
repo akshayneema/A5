@@ -783,7 +783,11 @@ vector<pair<pair<int, int>,pair<int, int> > > GamePlay::CheckContMarker( bool is
     for(auto move:a){
             pair<int, int> hp1pcl=coordinatebackConversion(move.first.first, move.first.second);
             pair<int, int> hp2pcl=coordinatebackConversion(move.second.first, move.second.second);
-            auto ptbr = tempboard->myringpos[0];
+            pair<int, int> ptbr;
+            if(ismyturn==true)
+                ptbr = tempboard->myringpos[0];
+            else
+                ptbr = tempboard->oppringpos[0];
             pair<int, int> hptbr=coordinatebackConversion(ptbr.first, ptbr.second);
             string str = "RS "+to_string(hp1pcl.first)+" "+to_string(hp1pcl.second)+" RE "+to_string(hp2pcl.first)+" "+to_string(hp2pcl.second)+" X "+to_string(hptbr.first)+" "+to_string(hptbr.second);  
             ChangeBoard(ismyturn, tempboard, str);
@@ -792,7 +796,11 @@ vector<pair<pair<int, int>,pair<int, int> > > GamePlay::CheckContMarker( bool is
     for(auto move:b){
             pair<int, int> hp1pcl=coordinatebackConversion(move.first.first, move.first.second);
             pair<int, int> hp2pcl=coordinatebackConversion(move.second.first, move.second.second);
-            auto ptbr = tempboard->myringpos[0];
+            pair<int, int> ptbr;
+            if(ismyturn==true)
+                ptbr = tempboard->myringpos[0];
+            else
+                ptbr = tempboard->oppringpos[0];
             pair<int, int> hptbr=coordinatebackConversion(ptbr.first, ptbr.second);
             string str = "RS "+to_string(hp1pcl.first)+" "+to_string(hp1pcl.second)+" RE "+to_string(hp2pcl.first)+" "+to_string(hp2pcl.second)+" X "+to_string(hptbr.first)+" "+to_string(hptbr.second);  
             ChangeBoard(ismyturn, tempboard, str);
@@ -925,12 +933,16 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
     // Board *preloopboard;
     string hey;
     auto precontlist = CheckContMarker(ismyturn, board);
-    
+    vector<pair<int, int> > ringsabell;
+    if(ismyturn)    
+        ringsabell = board->myringpos;
+    else 
+        ringsabell = board->oppringpos;
     // cerr<<"outloop";
     if(precontlist.empty()==true){
         // cerr<<"stilloutloop";
          string initialstring="";
-         for (auto r: board->myringpos){
+         for (auto r: ringsabell){
             //  cerr<<"loop1";
                     vector<pair<int, int> > list = neighbourPosition(board, r.first, r.second);
                     for(auto mymove : list){
@@ -943,6 +955,11 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
                         ChangeBoard(ismyturn, tempboard, mymovestring);
                         // tempboard->printBoard();
                         auto contlist = CheckContMarker(ismyturn, tempboard);
+                        vector<pair<int, int> > tempringsabell;
+                            if(ismyturn)    
+                                tempringsabell = tempboard->myringpos;
+                            else 
+                                tempringsabell = tempboard->oppringpos;
                         if(contlist.empty()){
                             hey = initialstring + "S "+to_string(hpr.first)+" "+to_string(hpr.second)+" M "+to_string(hpmymove.first)+" "+to_string(hpmymove.second);
                             // hey =initialstring+" S "+to_string(r.first)+" "+to_string(r.second)+" M "+to_string(mymove.first)+" "+to_string(mymove.second);
@@ -953,7 +970,7 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
                             // moves.clear();
                             for(auto cl : contlist){
                                 // cerr<<"loop3";
-                                for(auto tbr:tempboard->myringpos){
+                                for(auto tbr:tempringsabell){
                                     // hey = initialstring+" S "+to_string(r.first)+" "+to_string(r.second)+" M "+to_string(mymove.first)+" "+to_string(mymove.second);
                                     hey = initialstring+ "S "+to_string(hpr.first)+" "+to_string(hpr.second)+" M "+to_string(hpmymove.first)+" "+to_string(hpmymove.second);
                                     pair<int, int> hp1cl=coordinatebackConversion(cl.first.first, cl.first.second);
@@ -973,7 +990,7 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
                             hey = initialstring+ "S "+to_string(hpr.first)+" "+to_string(hpr.second)+" M "+to_string(hpmymove.first)+" "+to_string(hpmymove.second);
                             for(auto cl : contlist){
                                 // cerr<<"loop3";
-                                    auto tbr = tempboard->myringpos[i];
+                                    auto tbr = tempringsabell[i];
                                     // hey = initialstring+" S "+to_string(r.first)+" "+to_string(r.second)+" M "+to_string(mymove.first)+" "+to_string(mymove.second);
                                     pair<int, int> hp1cl=coordinatebackConversion(cl.first.first, cl.first.second);
                                     pair<int, int> hp2cl=coordinatebackConversion(cl.second.first, cl.second.second);
@@ -992,8 +1009,8 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
     else if(precontlist.size()==1){
         for(auto pcl : precontlist){
             // cerr<<"a";
-            for(auto ptbr:board->myringpos){
-                for(auto x:board->myringpos){
+            for(auto ptbr:ringsabell){
+                for(auto x:ringsabell){
                     // cerr<<x.first<<","<<x.second<<endl;
                 }
                 // cerr<<"2";
@@ -1003,7 +1020,12 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
                 pair<int, int> hptbr=coordinatebackConversion(ptbr.first, ptbr.second);
                 string initialstring = "RS "+to_string(hp1pcl.first)+" "+to_string(hp1pcl.second)+" RE "+to_string(hp2pcl.first)+" "+to_string(hp2pcl.second)+" X "+to_string(hptbr.first)+" "+to_string(hptbr.second);  
                 ChangeBoard(ismyturn, tempboard, initialstring);
-                for (auto r: tempboard->myringpos){
+                vector<pair<int, int> > tempringsabell;
+                if(ismyturn)    
+                    tempringsabell = tempboard->myringpos;
+                else 
+                    tempringsabell = tempboard->oppringpos;
+                for (auto r: tempringsabell){
                     // cerr<<"b";
                     vector<pair<int, int> > list = neighbourPosition(tempboard, r.first, r.second);
                     for(auto mymove : list){
@@ -1013,6 +1035,11 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
                         string mymovestring = "S "+to_string(hpr.first)+" "+to_string(hpr.second)+" M "+to_string(hpmymove.first)+" "+to_string(hpmymove.second);
                         // string mymovestring = "S "+to_string(r.first)+" "+to_string(r.second)+" M "+to_string(mymove.first)+" "+to_string(mymove.second);
                         ChangeBoard(ismyturn, temptempboard, mymovestring);
+                        vector<pair<int, int> > temptempringsabell;
+                            if(ismyturn)    
+                                tempringsabell = temptempboard->myringpos;
+                            else 
+                                tempringsabell = temptempboard->oppringpos;
                         auto contlist = CheckContMarker(ismyturn, temptempboard);
                         if(contlist.empty()==true){
                             // cerr<<"c";
@@ -1024,7 +1051,7 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
                         else{
                             // cerr<<"d";
                             for(auto cl : contlist){
-                                for(auto tbr:temptempboard->myringpos){
+                                for(auto tbr:temptempringsabell){
                                     // hey = initialstring+" S "+to_string(r.first)+" "+to_string(r.second)+" M "+to_string(mymove.first)+" "+to_string(mymove.second);
                                     // cerr<<"e";
                                     hey = initialstring+ " S "+to_string(hpr.first)+" "+to_string(hpr.second)+" M "+to_string(hpmymove.first)+" "+to_string(hpmymove.second);
@@ -1053,9 +1080,9 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
         string initialstring = "";
         for(auto pcl : precontlist){
             // cerr<<"a";
-            // for(auto ptbr:board->myringpos){
-                auto ptbr = board->myringpos[i];
-                for(auto x:board->myringpos){
+            // for(auto ptbr:ringsabell){
+                auto ptbr = ringsabell[i];
+                for(auto x:ringsabell){
                     // cerr<<x.first<<","<<x.second<<endl;
                 }
                 // cerr<<"2";
@@ -1070,8 +1097,12 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
                 ChangeBoard(ismyturn, tempboard, initialstring);
                 i++;
             }
-                
-                for (auto r: tempboard->myringpos){
+                vector<pair<int, int> > tempringsabell;
+                if(ismyturn)    
+                    tempringsabell = tempboard->myringpos;
+                else 
+                    tempringsabell = tempboard->oppringpos;
+                for (auto r: tempringsabell){
                     // cerr<<"b";
                     vector<pair<int, int> > list = neighbourPosition(tempboard, r.first, r.second);
                     for(auto mymove : list){
@@ -1091,8 +1122,13 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
                         }
                         else if (contlist.size() == 1){
                             // cerr<<"d";
+                            vector<pair<int, int> > temptempringsabell;
+                            if(ismyturn)    
+                                tempringsabell = temptempboard->myringpos;
+                            else 
+                                tempringsabell = temptempboard->oppringpos;
                             for(auto cl : contlist){
-                                for(auto tbr:temptempboard->myringpos){
+                                for(auto tbr:temptempringsabell){
                                     // hey = initialstring+" S "+to_string(r.first)+" "+to_string(r.second)+" M "+to_string(mymove.first)+" "+to_string(mymove.second);
                                     // cerr<<"e";
                                     hey = initialstring+ " S "+to_string(hpr.first)+" "+to_string(hpr.second)+" M "+to_string(hpmymove.first)+" "+to_string(hpmymove.second);
@@ -1112,7 +1148,7 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
                             hey = initialstring+ "S "+to_string(hpr.first)+" "+to_string(hpr.second)+" M "+to_string(hpmymove.first)+" "+to_string(hpmymove.second);
                             for(auto cl : contlist){
                                 // cerr<<"loop3";
-                                    auto tbr = tempboard->myringpos[i];
+                                    auto tbr = tempringsabell[i];
                                     // hey = initialstring+" S "+to_string(r.first)+" "+to_string(r.second)+" M "+to_string(mymove.first)+" "+to_string(mymove.second);
                                     pair<int, int> hp1cl=coordinatebackConversion(cl.first.first, cl.first.second);
                                     pair<int, int> hp2cl=coordinatebackConversion(cl.second.first, cl.second.second);
@@ -2519,7 +2555,7 @@ vector<pair<int,int> > GamePlay::neighbourPosition(Board* board, int x, int y)
         {
             if(board->b[i][y]==0)//empty space
             {
-                if(board->b[i-1][y]==0 || board->b[i-1][y]==1)
+                if(board->b[i-1][y]==0 || board->b[i-1][y]==1 || board->b[i-1][y]==-1)
                     v.push_back(make_pair(i,y));
                 else if(board->b[i-1][y]==-2 || board->b[i-1][y]==2)
                 {
@@ -2542,7 +2578,7 @@ vector<pair<int,int> > GamePlay::neighbourPosition(Board* board, int x, int y)
         {
             if(board->b[i][y]==0)
             {
-                if(board->b[i+1][y]==0 || board->b[i+1][y]==1)
+                if(board->b[i+1][y]==0 || board->b[i+1][y]==1 || board->b[i+1][y]==-1)
                     v.push_back(make_pair(i,y));
                 else if(board->b[i+1][y]==-2 || board->b[i+1][y]==2)
                 {
@@ -2565,9 +2601,9 @@ vector<pair<int,int> > GamePlay::neighbourPosition(Board* board, int x, int y)
         {
             if(board->b[x][i]==0)
             {
-                if(board->b[x][i-1]==0 || board->b[x][i-1]==1)
+                if(board->b[x][i-1]==0 || board->b[x][i-1]==1 || board->b[x][i-1]==-1)
                     v.push_back(make_pair(x,i));
-                else if(board->b[x][i-1]==-2 || board->b[x][i-1]==2)
+                else if(board->b[x][i-1]==-2 || board->b[x][i-1]==2 )
                 {
                     v.push_back(make_pair(x,i));
                     break;
@@ -2588,7 +2624,7 @@ vector<pair<int,int> > GamePlay::neighbourPosition(Board* board, int x, int y)
         {
             if(board->b[x][i]==0)
             {
-                if(board->b[x][i+1]==0 || board->b[x][i+1]==1)
+                if(board->b[x][i+1]==0 || board->b[x][i+1]==1 || board->b[x][i+1]==-1)
                     v.push_back(make_pair(x,i));
                 else if(board->b[x][i+1]==-2 || board->b[x][i+1]==2)
                 {
@@ -2613,7 +2649,7 @@ vector<pair<int,int> > GamePlay::neighbourPosition(Board* board, int x, int y)
         {
             if(board->b[i][j]==0)
             {
-                if(board->b[i-1][j-1]==0 || board->b[i-1][j-1]==1)
+                if(board->b[i-1][j-1]==0 || board->b[i-1][j-1]==1 || board->b[i-1][j-1]==-1)
                     v.push_back(make_pair(i,j));
                 else if(board->b[i-1][j-1]==-2 || board->b[i-1][j-1]==2)
                 {
@@ -2639,7 +2675,7 @@ vector<pair<int,int> > GamePlay::neighbourPosition(Board* board, int x, int y)
         {
             if(board->b[i][j]==0)
             {
-                if(board->b[i+1][j+1]==0 || board->b[i+1][j+1]==1)
+                if(board->b[i+1][j+1]==0 || board->b[i+1][j+1]==1 || board->b[i+1][j+1]==-1)
                     v.push_back(make_pair(i,j));
                 else if(board->b[i+1][j+1]==-2 || board->b[i+1][j+1]==2)
                 {
@@ -2771,80 +2807,46 @@ string GamePlay::miniMax(Board* board, int depth){
 
     posvalue = maxValue(board, -10000, +10000, depth);
     vector<string> neighbours = GamePlay::neighbours(board, false);
-    for (string n : neighbours) {
-        cerr<<n<<endl;
-    }
-    cerr<<"-----------------------CHANGE"<<endl;
-    neighbours = GamePlay::neighbours(board, true);
-    for (string n : neighbours) {
-        cerr<<n<<endl;
-    }
+    // for (string n : neighbours) {
+    //     cerr<<n<<endl;
+    // }
+    // cerr<<"-----------------------CHANGE"<<endl;
+    // neighbours = GamePlay::neighbours(board, true);
+    // for (string n : neighbours) {
+    //     cerr<<n<<endl;
+    // }
     cerr<<"-----------------------Eval="<<posvalue.first<<endl;
     cerr<<"my ring out"<<board->myringout<<endl;
     cerr<<"opp ring out"<<board->oppringout<<endl;
     return posvalue.second;
 }
-// pair<int, string> GamePlay::maxValue(Board* board, int alpha, int beta, int depth){
-//     // cerr<<"---------------- at level"<<depth<<"\n";
-//     if(depth>=4){
-//         // Board* newboard = board->flipBoard();
-//         string s = "";
-//         return make_pair(0, s);
-//     }
-//     int posValue = -INT_MAX;
-//     string move;
-//     vector<string> neighbours = GamePlay::neighbours(board, true);
-//     int hi=0;
-//     for (string n : neighbours) {
-//         Board* newboard = board->copyBoard();
-//         ChangeBoard(true, newboard, n);
-//         newboard = newboard->flipBoard(); 
-//         pair<int, string> newValue = maxValue(newboard, alpha, beta, depth+1);
-//         // cerr<<n<<"--"<<hi<<"/"<<neighbours.size()<<"-----------"<<newValue.first<<endl;
-//         string thismove=newValue.second;
-//         if(thismove!="")
-//             ChangeBoard(true,newboard,thismove);
-//         newboard = newboard->flipBoard(); 
-//         int ans=calcEval(newboard);
-//         if ( ans > posValue ) {
-//             posValue = ans;
-//             move = n;
-//         }                                               
-//         hi++;
-//     // alpha = max(alpha, newValue.first);
-//     // if(alpha>=beta) return make_pair(posValue, move);
-//     }
-    
-//   return make_pair(0, move);
-// }
 pair<int, string> GamePlay::maxValue(Board* board, int alpha, int beta, int depth){
     // cerr<<"---------------- at level"<<depth<<"\n";
     if(depth>=4){
         // Board* newboard = board->flipBoard();
         string s = "";
-        return make_pair(calcEval(board), s);
+        return make_pair(0, s);
     }
-    float posValue = -INT_MAX;
-    string move="loda";
-    vector<string> neigh = neighbours(board, true);
-    // cerr<<"-----------------------------max"<<endl;
-    // board->printBoard();
+    int posValue = -INT_MAX;
+    string move;
+    vector<string> neighbours = GamePlay::neighbours(board, true);
     int hi=0;
-    for (string n : neigh) {
+    for (string n : neighbours) {
         Board* newboard = board->copyBoard();
         ChangeBoard(true, newboard, n);
-        // newboard = newboard->flipBoard(); 
-        pair<int, string> newValue = minValue(newboard, alpha, beta, depth+1);
+        newboard = newboard->flipBoard(); 
+        pair<int, string> newValue = maxValue(newboard, alpha, beta, depth+1);
         // cerr<<n<<"--"<<hi<<"/"<<neighbours.size()<<"-----------"<<newValue.first<<endl;
-        // string thismove=newValue.second;
-        // if(thismove!="")
-        //     ChangeBoard(true,newboard,thismove);
-        // newboard = newboard->flipBoard(); 
-        // int ans=calcEval(newboard);
-        // cerr<<"print"<<endl;
-        // cerr<<"ans------------------------"<<n<<","<<newValue.second<<endl;
-        if ( newValue.first > posValue ) {
-            posValue = newValue.first;
+        string thismove=newValue.second;
+        if(thismove!="")
+        {
+            cerr<<n<<","<<newValue.second<<endl;
+            ChangeBoard(true,newboard,thismove);
+        }
+        newboard = newboard->flipBoard(); 
+        int ans=calcEval(newboard);
+        if ( ans > posValue ) {
+            posValue = ans;
             move = n;
         }                                               
         hi++;
@@ -2852,8 +2854,45 @@ pair<int, string> GamePlay::maxValue(Board* board, int alpha, int beta, int dept
     // if(alpha>=beta) return make_pair(posValue, move);
     }
     
-  return make_pair(posValue, move);
+  return make_pair(0, move);
 }
+// pair<int, string> GamePlay::maxValue(Board* board, int alpha, int beta, int depth){
+//     // cerr<<"---------------- at level"<<depth<<"\n";
+//     if(depth>=4){
+//         // Board* newboard = board->flipBoard();
+//         string s = "";
+//         return make_pair(calcEval(board), s);
+//     }
+//     float posValue = -INT_MAX;
+//     string move="loda";
+//     vector<string> neigh = neighbours(board, true);
+//     // cerr<<"-----------------------------max"<<endl;
+//     // board->printBoard();
+//     int hi=0;
+//     for (string n : neigh) {
+//         Board* newboard = board->copyBoard();
+//         ChangeBoard(true, newboard, n);
+//         // newboard = newboard->flipBoard(); 
+//         pair<int, string> newValue = minValue(newboard, alpha, beta, depth+1);
+//         // cerr<<n<<"--"<<hi<<"/"<<neighbours.size()<<"-----------"<<newValue.first<<endl;
+//         // string thismove=newValue.second;
+//         // if(thismove!="")
+//         //     ChangeBoard(true,newboard,thismove);
+//         // newboard = newboard->flipBoard(); 
+//         // int ans=calcEval(newboard);
+//         // cerr<<"print"<<endl;
+//         cerr<<n<<","<<newValue.second<<endl;
+//         if ( newValue.first > posValue ) {
+//             posValue = newValue.first;
+//             move = n;
+//         }                                               
+//         hi++;
+//     // alpha = max(alpha, newValue.first);
+//     // if(alpha>=beta) return make_pair(posValue, move);
+//     }
+    
+//   return make_pair(posValue, move);
+// }
 pair<int, string> GamePlay::minValue(Board* board, int alpha, int beta, int depth){
     // cerr<<"---------------- at level"<<depth<<"\n";
     if(depth>=4){
@@ -2866,10 +2905,11 @@ pair<int, string> GamePlay::minValue(Board* board, int alpha, int beta, int dept
     // cerr<<"-----------------------------min"<<endl;
     // board->printBoard();
     for (string n : neigh) {
-        // cerr<<n<<endl;
+        
         Board* newboard = board->copyBoard();
         ChangeBoard(false, newboard, n);
         pair<int, string> newValue = maxValue(newboard, alpha, beta, depth+1);
+        // cerr<<n<<"------         "<<newValue.first<<endl;
         if ( newValue.first < posValue ) {
             posValue = newValue.first;
             move = n;
@@ -3518,7 +3558,7 @@ int GamePlay::calcEval(Board* board)
                         goodness-=500;
                     }
                     else if(count>=5){
-                        goodness-=-12500;
+                        goodness-=12500;
                     }
                 }
             }
