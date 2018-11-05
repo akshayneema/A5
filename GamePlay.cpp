@@ -1063,8 +1063,10 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
                 pair<int, int> hp1pcl=coordinatebackConversion(pcl.first.first, pcl.first.second);
                 pair<int, int> hp2pcl=coordinatebackConversion(pcl.second.first, pcl.second.second);
                 pair<int, int> hptbr=coordinatebackConversion(ptbr.first, ptbr.second);
-if(i==0)                initialstring += "RS "+to_string(hp1pcl.first)+" "+to_string(hp1pcl.second)+" RE "+to_string(hp2pcl.first)+" "+to_string(hp2pcl.second)+" X "+to_string(hptbr.first)+" "+to_string(hptbr.second);                  
-else         initialstring += " RS "+to_string(hp1pcl.first)+" "+to_string(hp1pcl.second)+" RE "+to_string(hp2pcl.first)+" "+to_string(hp2pcl.second)+" X "+to_string(hptbr.first)+" "+to_string(hptbr.second);  
+                if(i==0)                
+                    initialstring += "RS "+to_string(hp1pcl.first)+" "+to_string(hp1pcl.second)+" RE "+to_string(hp2pcl.first)+" "+to_string(hp2pcl.second)+" X "+to_string(hptbr.first)+" "+to_string(hptbr.second);                  
+                else         
+                    initialstring += " RS "+to_string(hp1pcl.first)+" "+to_string(hp1pcl.second)+" RE "+to_string(hp2pcl.first)+" "+to_string(hp2pcl.second)+" X "+to_string(hptbr.first)+" "+to_string(hptbr.second);  
                 ChangeBoard(ismyturn, tempboard, initialstring);
                 i++;
             }
@@ -1727,7 +1729,7 @@ vector<int> GamePlay::totalMarkerSpaceRing(Board* board)
     }
     return maxi;
 }
-vector<int> GamePlay::ringClash(Board* board,int x,int y)
+vector<int> GamePlay::ringClash(Board* board,int x,int y)//spacemarkerring
 {
     // vector<pair<int,int> > v;
     // int maxi=-10;
@@ -2239,7 +2241,270 @@ vector<int> GamePlay::totalMyRingClash(Board* board)
     }
     return maxi;
 }
+vector<int> GamePlay::oppMyOpp(Board* board,int x,int y)//spacemarkerring
+{
+    // vector<pair<int,int> > v;
+    // int maxi=-10;
+    //slope +0
+    vector<int> v(3);
 
+    int ans=0;
+    int count=0;
+    bool clash=false;
+    for(int i=x+1;i<=2*size;i++)
+    {
+        // int count=0;
+        if(board->b[i][y]==3)
+        {
+            count=0;
+            break;
+        }
+        else
+        {
+            if(board->b[i][y]==0)//empty space
+            {
+                break;
+            }
+            else if(board->b[i][y]==1 || board->b[i][y]==-1)//ring encounter
+            {
+                count=0;
+                break;
+            }
+            else if(board->b[i][y]==2)
+            {
+                count++;
+            }
+            else if(board->b[i][y]==-2)
+            {
+                // count=0;
+                clash=true;
+                break;
+            }
+        }
+    }
+
+    if(count==4 && clash==true)
+        v[2]++;
+    if(count==3 && clash==true)
+        v[1]++;
+    clash=false;
+    // if(count==3)
+    //     v[1]++;
+    // if(count==2)
+    //     v[0]++;
+    count=0;
+    for(int i=x-1;i>=0;i--)
+    {
+        // count=0;
+        if(board->b[i][y]==3)
+        {
+            count=0;
+            break;
+        }
+        else
+        {
+            if(board->b[i][y]==0)
+            {
+                break;
+            }
+            else if(board->b[i][y]==1 || board->b[i][y]==-1)//ring encounter
+            {
+                count=0;
+                break;
+            }
+            else if(board->b[i][y]==-2)
+            {
+                // count=0;
+                clash=true;
+                break;
+            }
+            else
+                count++;
+        }
+    }
+    //slope +infi
+    if(count==4 && clash==true)
+        v[2]++;
+    if(count==3 && clash==true)
+        v[1]++;
+    clash=false;
+    // if(count==3)
+    //     v[1]++;
+    // if(count==2)
+    //     v[0]++;
+    count=0;
+    for(int i=y+1;i<=2*size;i++)
+    {
+        if(board->b[x][i]==3)
+        {
+            count=0;
+            break;
+        }
+        else
+        {
+            if(board->b[x][i]==0)
+            {
+                break;
+            }
+            else if(board->b[x][i]==1 || board->b[x][i]==-1)//ring encounter
+            {
+                count=0;
+                break;
+            }
+            else if(board->b[x][i]==-2)
+            {
+                // count=0;
+                clash=true;
+                break;
+            }
+            else
+                count++;
+        }
+    }
+    if(count==4 && clash==true)
+        v[2]++;
+    if(count==3 && clash==true)
+        v[1]++;
+    clash=false;
+    count=0;
+    for(int i=y-1;i>=0;i--)
+    {
+        if(board->b[x][i]==3)
+        {
+            count=0;
+            break;
+        }
+        else
+        {
+            if(board->b[x][i]==0)
+            {
+                 break;
+            }
+            else if(board->b[x][i]==1 || board->b[x][i]==-1)//ring encounter
+            {
+                count=0;
+                break;
+            }
+            else if(board->b[x][i]==-2)
+            {
+                // count=0;
+                clash=true;
+                break;
+            }
+            else
+                count++;
+        }
+    }
+    if(count==4 && clash==true)
+        v[2]++;
+    if(count==3 && clash==true)
+        v[1]++;
+    clash=false;
+    //slope +1
+    // if(count==3)
+    //     v[1]++;
+    // if(count==2)
+    //     v[0]++;
+    count=0;
+    int i=x+1;
+    int j=y+1;
+    while(i<=2*size && j<=2*size)
+    {
+        if(board->b[i][j]==3)
+        {
+            count=0;
+            break;
+        }
+        else
+        {
+            if(board->b[i][j]==0)
+            {
+                break;
+            }
+            else if(board->b[i][j]==1 || board->b[i][j]==-1)//ring encounter
+            {
+                count=0;
+                break;
+            }
+            else if(board->b[i][j]==-2)
+            {
+                // count=0;
+                clash=true;
+                break;
+            }
+            else
+                count++;
+        }
+        i++;
+        j++;
+    }
+    if(count==4 && clash==true)
+        v[2]++;
+    if(count==3 && clash==true)
+        v[1]++;
+    clash=false;
+    // if(count==3)
+    //     v[1]++;
+    // if(count==2)
+    //     v[0]++;
+    count=0;
+    i=x-1;
+    j=y-1;
+    while(i>=0 && j>=0)
+    {
+        if(board->b[i][j]==3)
+        {
+            count=0;
+            break;
+        }
+        else
+        {
+            if(board->b[i][j]==0)
+            {
+                break;
+            }
+            else if(board->b[i][j]==1 || board->b[i][j]==-1)//ring encounter
+            {
+                count=0;
+                break;
+            }
+            else if(board->b[i][j]==-2)
+            {
+                // count=0;
+                clash=true;
+                break;
+            }
+            else
+                count++;
+        }
+        i--;
+        j--;
+    }
+    // maxi=max(maxi,-count);
+    if(count==4 && clash==true)
+        v[2]++;
+    if(count==3 && clash==true)
+        v[1]++;
+    clash=false;
+    // if(count==3)
+    //     v[1]++;
+    // if(count==2)
+    //     v[0]++;
+    return v;
+}
+vector<int> GamePlay::totalOppMyOpp(Board* board)
+{
+    vector<int> maxi(3);
+    for(auto i: board->oppringpos)
+    {
+        // sum+=oppflip(board,i.first,i.second);
+        // maxi=max(maxi,maxoppflip(board,i.first,i.second));
+        vector<int> v=oppMyOpp(board,i.first,i.second);
+        for(int i=0;i<3;i++)
+            maxi[i]+=v[i];
+    }
+    return maxi;
+}
 vector<pair<int,int> > GamePlay::neighbourPosition(Board* board, int x, int y) 
 {
     vector<pair<int,int> > v;
@@ -2472,7 +2737,7 @@ string GamePlay::nextMove()
          return "P "+to_string(hp.first)+" "+ to_string(hp.second);
     }
     else{
-        return miniMax(this->curboard, 3);
+        return miniMax(this->curboard, 2);
         // return miniMaxAlt();
     }
 
@@ -2505,29 +2770,79 @@ string GamePlay::miniMax(Board* board, int depth){
     pair<int, string> posvalue;
 
     posvalue = maxValue(board, -10000, +10000, depth);
+    vector<string> neighbours = GamePlay::neighbours(board, false);
+    for (string n : neighbours) {
+        cerr<<n<<endl;
+    }
+    cerr<<"-----------------------CHANGE"<<endl;
+    neighbours = GamePlay::neighbours(board, true);
+    for (string n : neighbours) {
+        cerr<<n<<endl;
+    }
     cerr<<"-----------------------Eval="<<posvalue.first<<endl;
     cerr<<"my ring out"<<board->myringout<<endl;
     cerr<<"opp ring out"<<board->oppringout<<endl;
     return posvalue.second;
 }
+// pair<int, string> GamePlay::maxValue(Board* board, int alpha, int beta, int depth){
+//     // cerr<<"---------------- at level"<<depth<<"\n";
+//     if(depth>=4){
+//         // Board* newboard = board->flipBoard();
+//         string s = "";
+//         return make_pair(0, s);
+//     }
+//     int posValue = -INT_MAX;
+//     string move;
+//     vector<string> neighbours = GamePlay::neighbours(board, true);
+//     int hi=0;
+//     for (string n : neighbours) {
+//         Board* newboard = board->copyBoard();
+//         ChangeBoard(true, newboard, n);
+//         newboard = newboard->flipBoard(); 
+//         pair<int, string> newValue = maxValue(newboard, alpha, beta, depth+1);
+//         // cerr<<n<<"--"<<hi<<"/"<<neighbours.size()<<"-----------"<<newValue.first<<endl;
+//         string thismove=newValue.second;
+//         if(thismove!="")
+//             ChangeBoard(true,newboard,thismove);
+//         newboard = newboard->flipBoard(); 
+//         int ans=calcEval(newboard);
+//         if ( ans > posValue ) {
+//             posValue = ans;
+//             move = n;
+//         }                                               
+//         hi++;
+//     // alpha = max(alpha, newValue.first);
+//     // if(alpha>=beta) return make_pair(posValue, move);
+//     }
+    
+//   return make_pair(0, move);
+// }
 pair<int, string> GamePlay::maxValue(Board* board, int alpha, int beta, int depth){
     // cerr<<"---------------- at level"<<depth<<"\n";
     if(depth>=4){
-        Board* newboard = board->flipBoard();
+        // Board* newboard = board->flipBoard();
         string s = "";
-        return make_pair(calcEval(newboard), s);
+        return make_pair(calcEval(board), s);
     }
     float posValue = -INT_MAX;
-    string move;
-    vector<string> neighbours = GamePlay::neighbours(board, true);
+    string move="loda";
+    vector<string> neigh = neighbours(board, true);
+    // cerr<<"-----------------------------max"<<endl;
+    // board->printBoard();
     int hi=0;
-    for (string n : neighbours) {
+    for (string n : neigh) {
         Board* newboard = board->copyBoard();
         ChangeBoard(true, newboard, n);
-        newboard = newboard->flipBoard(); 
-        pair<int, string> newValue = maxValue(newboard, alpha, beta, depth+1);
-        cerr<<n<<"--"<<hi<<"/"<<neighbours.size()<<"-----------"<<newValue.first<<endl;
-        
+        // newboard = newboard->flipBoard(); 
+        pair<int, string> newValue = minValue(newboard, alpha, beta, depth+1);
+        // cerr<<n<<"--"<<hi<<"/"<<neighbours.size()<<"-----------"<<newValue.first<<endl;
+        // string thismove=newValue.second;
+        // if(thismove!="")
+        //     ChangeBoard(true,newboard,thismove);
+        // newboard = newboard->flipBoard(); 
+        // int ans=calcEval(newboard);
+        // cerr<<"print"<<endl;
+        // cerr<<"ans------------------------"<<n<<","<<newValue.second<<endl;
         if ( newValue.first > posValue ) {
             posValue = newValue.first;
             move = n;
@@ -2536,6 +2851,7 @@ pair<int, string> GamePlay::maxValue(Board* board, int alpha, int beta, int dept
     // alpha = max(alpha, newValue.first);
     // if(alpha>=beta) return make_pair(posValue, move);
     }
+    
   return make_pair(posValue, move);
 }
 pair<int, string> GamePlay::minValue(Board* board, int alpha, int beta, int depth){
@@ -2544,11 +2860,13 @@ pair<int, string> GamePlay::minValue(Board* board, int alpha, int beta, int dept
         string s ="";
         return make_pair(calcEval(board), s);
     }
-    float posValue = INT_MAX;
-    string move;
-    vector<string> neighbours = GamePlay::neighbours(board, false);
-    for (string n : neighbours) {
-
+    int posValue = INT_MAX;
+    string move="loda";
+    vector<string> neigh = neighbours(board, false);
+    // cerr<<"-----------------------------min"<<endl;
+    // board->printBoard();
+    for (string n : neigh) {
+        // cerr<<n<<endl;
         Board* newboard = board->copyBoard();
         ChangeBoard(false, newboard, n);
         pair<int, string> newValue = maxValue(newboard, alpha, beta, depth+1);
@@ -2639,20 +2957,20 @@ int GamePlay::calcEval(Board* board)
                         goodness+=1;
                     }
                     else if(count==2){
-                        goodness+=4;
-                        // goodness+=5;
+                        // goodness+=4;
+                        goodness+=5;
                     }
                     else if(count==3){
-                        goodness+=10;
-                        // goodness+=40;
+                        // goodness+=10;
+                        goodness+=40;
                     }                
                     else if(count==4){
-                        goodness+=200;
-                        // goodness+=1000;
+                        // goodness+=200;
+                        goodness+=1000;
                     }
                     else if(count>=5){
-                        goodness+=5000;
-                        // goodness+=25000;
+                        // goodness+=5000;
+                        goodness+=25000;
                     }
                 }  
                 if(board->b[x][y]==1)
@@ -2664,16 +2982,16 @@ int GamePlay::calcEval(Board* board)
                         goodness+=2;
                     }
                     else if(count==3){
-                        goodness+=5;
-                        // goodness+=20;
+                        // goodness+=5;
+                        goodness+=20;
                     }                
                     else if(count==4){
-                        goodness+=100;
-                        // goodness+=500;
+                        // goodness+=100;
+                        goodness+=500;
                     }
                     else if(count>=5){
-                        goodness+=2500;
-                        // goodness+=12500;
+                        // goodness+=2500;
+                        goodness+=12500;
                     }
                 }
             }
@@ -2770,20 +3088,20 @@ int GamePlay::calcEval(Board* board)
                         goodness+=1;
                     }
                     else if(count==2){
-                        goodness+=4;
-                        // goodness+=5;
+                        // goodness+=4;
+                        goodness+=5;
                     }
                     else if(count==3){
-                        goodness+=10;
-                        // goodness+=40;
+                        // goodness+=10;
+                        goodness+=40;
                     }                
                     else if(count==4){
-                        goodness+=200;
-                        // goodness+=1000;
+                        // goodness+=200;
+                        goodness+=1000;
                     }
                     else if(count>=5){
-                        goodness+=5000;
-                        // goodness+=25000;
+                        // goodness+=5000;
+                        goodness+=25000;
                     }
                 }  
                 if(board->b[x][y]==1)
@@ -2795,16 +3113,16 @@ int GamePlay::calcEval(Board* board)
                         goodness+=2;
                     }
                     else if(count==3){
-                        goodness+=5;
-                        // goodness+=20;
+                        // goodness+=5;
+                        goodness+=20;
                     }                
                     else if(count==4){
-                        goodness+=100;
-                        // goodness+=500;
+                        // goodness+=100;
+                        goodness+=500;
                     }
                     else if(count>=5){
-                        goodness+=2500;
-                        // goodness+=12500;
+                        // goodness+=2500;
+                        goodness+=12500;
                     }
                 }
             }
@@ -2905,20 +3223,20 @@ int GamePlay::calcEval(Board* board)
                         goodness+=1;
                     }
                     else if(count==2){
-                        goodness+=4;
-                        // goodness+=5;
+                        // goodness+=4;
+                        goodness+=5;
                     }
                     else if(count==3){
-                        goodness+=10;
-                        // goodness+=40;
+                        // goodness+=10;
+                        goodness+=40;
                     }                
                     else if(count==4){
-                        goodness+=200;
-                        // goodness+=1000;
+                        // goodness+=200;
+                        goodness+=1000;
                     }
                     else if(count>=5){
-                        goodness+=5000;
-                        // goodness+=25000;
+                        // goodness+=5000;
+                        goodness+=25000;
                     }
                 }  
                 if(board->b[x][y]==1)
@@ -2930,16 +3248,16 @@ int GamePlay::calcEval(Board* board)
                         goodness+=2;
                     }
                     else if(count==3){
-                        goodness+=5;
-                        // goodness+=20;
+                        // goodness+=5;
+                        goodness+=20;
                     }                
                     else if(count==4){
-                        goodness+=100;
-                        // goodness+=500;
+                        // goodness+=100;
+                        goodness+=500;
                     }
                     else if(count>=5){
-                        goodness+=2500;
-                        // goodness+=12500;
+                        // goodness+=2500;
+                        goodness+=12500;
                     }
                 }
             }
@@ -3038,20 +3356,20 @@ int GamePlay::calcEval(Board* board)
                         goodness+=1;
                     }
                     else if(count==2){
-                        goodness+=4;
-                        // goodness+=5;
+                        // goodness+=4;
+                        goodness+=5;
                     }
                     else if(count==3){
-                        goodness+=10;
-                        // goodness+=40;
+                        // goodness+=10;
+                        goodness+=40;
                     }                
                     else if(count==4){
-                        goodness+=200;
-                        // goodness+=1000;
+                        // goodness+=200;
+                        goodness+=1000;
                     }
                     else if(count>=5){
-                        goodness+=5000;
-                        // goodness+=25000;
+                        // goodness+=5000;
+                        goodness+=25000;
                     }
                 }  
                 if(board->b[x][y]==1)
@@ -3063,16 +3381,16 @@ int GamePlay::calcEval(Board* board)
                         goodness+=2;
                     }
                     else if(count==3){
-                        goodness+=5;
-                        // goodness+=20;
+                        // goodness+=5;
+                        goodness+=20;
                     }                
                     else if(count==4){
-                        goodness+=100;
-                        // goodness+=500;
+                        // goodness+=100;
+                        goodness+=500;
                     }
                     else if(count>=5){
-                        goodness+=2500;
-                        // goodness+=12500;
+                        // goodness+=2500;
+                        goodness+=12500;
                     }
                 }
             }
@@ -3588,18 +3906,27 @@ int GamePlay::calcEval(Board* board)
 
     // goodness-=50*oppflipsum(board);
     //// consider for gaining a ring out
-    vector<int> v=totalOppRingClash(board);
-    goodness-=v[2]*14000;
-    goodness-=v[1]*700;
-    goodness-=v[0]*35;
+
+
+//-------------------------------------------------------------------------------
+    // vector<int> v=totalOppRingClash(board);
+    // goodness-=v[2]*14000;
+    // goodness-=v[1]*700;
+    // goodness-=v[0]*35;
     // v=totalMyRingClash(board);
-    // goodness+=v[2]*2700;
-    // goodness+=v[1]*120;
-    // goodness+=v[0]*10;
-    v=totalMarkerSpaceRing(board);
-    goodness-=v[2]*800;
-    goodness-=v[1]*40;
-    goodness-=v[0]*2;
+    // goodness+=v[2]*14000;
+    // goodness+=v[1]*700;
+    // goodness+=v[0]*35;
+
+//-------------------------------------------------------------------------------
+
+    // v=totalMarkerSpaceRing(board);
+    // goodness-=v[2]*800;
+    // goodness-=v[1]*40;
+    // goodness-=v[0]*2;
+    // v=totalOppMyOpp(board);
+    // goodness-=v[2]*10000;
+    // goodness-=v[1]*100;
     // goodness-=(totalMyRingClash(board)/(5-board->myringout))*400;
 
     goodness+=board->myringout*200000;

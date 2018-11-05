@@ -90,6 +90,8 @@ public:
     vector<int> ringClash(Board* board,int x,int y);
     vector<int > markerSpaceRing(Board* board, int x, int y);
     vector<int> totalMarkerSpaceRing(Board* board);
+    vector<int> oppMyOpp(Board* board, int x, int y);
+    vector<int> totalOppMyOpp(Board* board);
 };
 
 
