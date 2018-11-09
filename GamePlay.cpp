@@ -14,35 +14,37 @@ GamePlay::GamePlay ( )
     processingTimeInMinutes=0;
 }
 
-GamePlay::GamePlay (int size)
+GamePlay::GamePlay (int size, int contmarker)
 {
     this->size=size;
+    this->startring=size;
+    this->contmarker = contmarker;
     this->curboard = new Board (size);
 }
 
 pair<int, int> GamePlay::coordinatebackConversion(int x, int y){
-    int sign = (x-5)*(y-5);
+    int sign = (x-size)*(y-size);
     int h,p;
     if(sign>=0){
-        h = max(abs(x-5), abs(y-5));
+        h = max(abs(x-size), abs(y-size));
     }
     else {
-        h = abs(x-5) + abs(y-5);
+        h = abs(x-size) + abs(y-size);
     }
-    if(x-5==h)
+    if(x-size==h)
     {
-        p=y-5;
+        p=y-size;
     } 
-    else if(y-5==h)
-        p=2*(y-5)-(x-5);
-    else if(x-5==-h)
-        p=3*abs(x-5)+abs(y-5);
-    else if(y-5==-h)
-        p=5*abs(y-5)-abs(x-5);
-    else if(x-5<0)
-        p=3*h-(y-5);
-    else if(y-5<0)
-        p=5*h+(x-5);
+    else if(y-size==h)
+        p=2*(y-size)-(x-size);
+    else if(x-size==-h)
+        p=3*abs(x-size)+abs(y-size);
+    else if(y-size==-h)
+        p=5*abs(y-size)-abs(x-size);
+    else if(x-size<0)
+        p=3*h-(y-size);
+    else if(y-size<0)
+        p=5*h+(x-size);
     return make_pair(h, p);
 }
 pair<int,int> GamePlay::coordinateConversion(int h, int p)
@@ -650,9 +652,9 @@ vector<pair<pair<int, int>,pair<int, int> > > GamePlay::CheckContMarkerX( bool i
         count=0;
         while(y<n){
             if(board->b[x][y]!=m){
-                if(count>=5){
+                if(count>=contmarker){
                     // goodmarkers.push_back(make_pair(make_pair(x,start),make_pair(x, y-1)));
-                    goodmarkers.push_back(make_pair(make_pair(x,y-5),make_pair(x, y-1)));
+                    goodmarkers.push_back(make_pair(make_pair(x,y-contmarker),make_pair(x, y-1)));
                 }
                 count=0;
                 start=y+1;
@@ -662,9 +664,9 @@ vector<pair<pair<int, int>,pair<int, int> > > GamePlay::CheckContMarkerX( bool i
             }
         y++;
         }
-        if(count>=5){
+        if(count>=contmarker){
             // goodmarkers.push_back(make_pair(make_pair(x,start),make_pair(x, y-1)));
-                    goodmarkers.push_back(make_pair(make_pair(x,y-5),make_pair(x, y-1)));
+                    goodmarkers.push_back(make_pair(make_pair(x,y-contmarker),make_pair(x, y-1)));
             }
     }
     
@@ -686,9 +688,9 @@ vector<pair<pair<int, int>,pair<int, int> > > GamePlay::CheckContMarkerY( bool i
         count=0;
         while(x<n){
             if(board->b[x][y]!=m){
-                if(count>=5){
+                if(count>=contmarker){
                     // goodmarkers.push_back(make_pair(make_pair(start,y),make_pair(x-1, y)));
-                    goodmarkers.push_back(make_pair(make_pair(x-5,y),make_pair(x-1, y)));
+                    goodmarkers.push_back(make_pair(make_pair(x-contmarker,y),make_pair(x-1, y)));
                 }
                 count=0;
                 start=x+1;
@@ -698,9 +700,9 @@ vector<pair<pair<int, int>,pair<int, int> > > GamePlay::CheckContMarkerY( bool i
             }
         x++;
         }
-        if(count>=5){
+        if(count>=contmarker){
             // goodmarkers.push_back(make_pair(make_pair(start,y),make_pair(x-1, y)));
-                    goodmarkers.push_back(make_pair(make_pair(x-5,y),make_pair(x-1, y)));
+                    goodmarkers.push_back(make_pair(make_pair(x-contmarker,y),make_pair(x-1, y)));
 
         }
     }
@@ -719,7 +721,7 @@ vector<pair<pair<int, int>,pair<int, int> > > GamePlay::CheckContMarkerXY( bool 
    
     int startx = 0;
     int starty = 0;
-    for(int i=5;i>=0;i--){  
+    for(int i=size;i>=0;i--){  
         int x = i;
         int y = 0;
         startx=i;
@@ -727,9 +729,9 @@ vector<pair<pair<int, int>,pair<int, int> > > GamePlay::CheckContMarkerXY( bool 
         count=0;
         while(x<n&&y<n){
             if(board->b[x][y]!=m){
-                if(count>=5){
+                if(count>=contmarker){
                     // goodmarkers.push_back(make_pair(make_pair(startx,starty),make_pair(x-1, y-1)));
-                    goodmarkers.push_back(make_pair(make_pair(x-5,y-5),make_pair(x-1, y-1)));
+                    goodmarkers.push_back(make_pair(make_pair(x-contmarker,y-contmarker),make_pair(x-1, y-1)));
 
                 }
                 count=0;
@@ -742,12 +744,12 @@ vector<pair<pair<int, int>,pair<int, int> > > GamePlay::CheckContMarkerXY( bool 
             x++;
             y++;
         }
-        if(count>=5){
+        if(count>=contmarker){
             // goodmarkers.push_back(make_pair(make_pair(startx,starty),make_pair(x-1, y-1)));
-                    goodmarkers.push_back(make_pair(make_pair(x-5,y-5),make_pair(x-1, y-1)));
+                    goodmarkers.push_back(make_pair(make_pair(x-contmarker,y-contmarker),make_pair(x-1, y-1)));
         }
     }
-    for(int j=1;j<=5;j++){
+    for(int j=1;j<=size;j++){
         int x = 0;
         int y = j;
         startx=0;
@@ -755,9 +757,9 @@ vector<pair<pair<int, int>,pair<int, int> > > GamePlay::CheckContMarkerXY( bool 
         count=0;
         while(x<n&&y<n){
             if(board->b[x][y]!=m){
-                if(count>=5){
+                if(count>=contmarker){
                     // goodmarkers.push_back(make_pair(make_pair(startx,starty),make_pair(x-1, y-1)));
-                    goodmarkers.push_back(make_pair(make_pair(x-5,y-5),make_pair(x-1, y-1)));
+                    goodmarkers.push_back(make_pair(make_pair(x-contmarker,y-contmarker),make_pair(x-1, y-1)));
                 }
                 count=0;
                 startx=x+1;
@@ -769,9 +771,9 @@ vector<pair<pair<int, int>,pair<int, int> > > GamePlay::CheckContMarkerXY( bool 
             x++;
             y++;
         }
-        if(count>=5){
+        if(count>=contmarker){
             // goodmarkers.push_back(make_pair(make_pair(startx,starty),make_pair(x-1, y-1)));
-                    goodmarkers.push_back(make_pair(make_pair(x-5,y-5),make_pair(x-1, y-1)));
+                    goodmarkers.push_back(make_pair(make_pair(x-contmarker,y-contmarker),make_pair(x-1, y-1)));
         }
     }
     return goodmarkers;
@@ -811,121 +813,6 @@ vector<pair<pair<int, int>,pair<int, int> > > GamePlay::CheckContMarker( bool is
 
     return a;
     }
-// vector<pair<pair<int, int>,pair<int, int> > > GamePlay::CheckContMarker( bool ismyturn, Board* board)
-// {   
-//     int m;
-//     if(ismyturn==true) m=2;
-//     else m=-2;
-//     int count = 0;
-//     vector<pair<pair<int, int>, pair<int, int> > > goodmarkers;
-//     int n = 2*size+1;
-//     int start =0;
-//     for(int x=0;x<n;x++){
-//         int y=0;
-//         start=0;
-//         count=0;
-//         while(y<n){
-//             if(board->b[x][y]!=m){
-//                 if(count>=5){
-//                     // goodmarkers.push_back(make_pair(make_pair(x,start),make_pair(x, y-1)));
-//                     goodmarkers.push_back(make_pair(make_pair(x,y-5),make_pair(x, y-1)));
-//                 }
-//                 count=0;
-//                 start=y+1;
-//             }
-//             else{
-//                 count++;
-//             }
-//         y++;
-//         }
-//         if(count>=5){
-//             // goodmarkers.push_back(make_pair(make_pair(x,start),make_pair(x, y-1)));
-//                     goodmarkers.push_back(make_pair(make_pair(x,y-5),make_pair(x, y-1)));
-//             }
-//     }
-//     for(int y=0;y<n;y++){
-//         int x=0;
-//         start=0;
-//         count=0;
-//         while(x<n){
-//             if(board->b[x][y]!=m){
-//                 if(count>=5){
-//                     // goodmarkers.push_back(make_pair(make_pair(start,y),make_pair(x-1, y)));
-//                     goodmarkers.push_back(make_pair(make_pair(x-5,y),make_pair(x-1, y)));
-//                 }
-//                 count=0;
-//                 start=x+1;
-//             }
-//             else{
-//                 count++;
-//             }
-//         x++;
-//         }
-//         if(count>=5){
-//             // goodmarkers.push_back(make_pair(make_pair(start,y),make_pair(x-1, y)));
-//                     goodmarkers.push_back(make_pair(make_pair(x-5,y),make_pair(x-1, y)));
-
-//         }
-//     }
-//     int startx = 0;
-//     int starty = 0;
-//     for(int i=5;i>=0;i--){  
-//         int x = i;
-//         int y = 0;
-//         startx=i;
-//         starty=0;
-//         count=0;
-//         while(x<n&&y<n){
-//             if(board->b[x][y]!=m){
-//                 if(count>=5){
-//                     // goodmarkers.push_back(make_pair(make_pair(startx,starty),make_pair(x-1, y-1)));
-//                     goodmarkers.push_back(make_pair(make_pair(x-5,y-5),make_pair(x-1, y-1)));
-
-//                 }
-//                 count=0;
-//                 startx=x+1;
-//                 starty=y+1;
-//             }
-//             else{
-//                 count++;
-//             }
-//             x++;
-//             y++;
-//         }
-//         if(count>=5){
-//             // goodmarkers.push_back(make_pair(make_pair(startx,starty),make_pair(x-1, y-1)));
-//                     goodmarkers.push_back(make_pair(make_pair(x-5,y-5),make_pair(x-1, y-1)));
-//         }
-//     }
-//     for(int j=1;j<=5;j++){
-//         int x = 0;
-//         int y = j;
-//         startx=0;
-//         starty=j;
-//         count=0;
-//         while(x<n&&y<n){
-//             if(board->b[x][y]!=m){
-//                 if(count>=5){
-//                     // goodmarkers.push_back(make_pair(make_pair(startx,starty),make_pair(x-1, y-1)));
-//                     goodmarkers.push_back(make_pair(make_pair(x-5,y-5),make_pair(x-1, y-1)));
-//                 }
-//                 count=0;
-//                 startx=x+1;
-//                 starty=y+1;
-//             }
-//             else{
-//                 count++;
-//             }
-//             x++;
-//             y++;
-//         }
-//         if(count>=5){
-//             // goodmarkers.push_back(make_pair(make_pair(startx,starty),make_pair(x-1, y-1)));
-//                     goodmarkers.push_back(make_pair(make_pair(x-5,y-5),make_pair(x-1, y-1)));
-//         }
-//     }
-//     return goodmarkers;
-// }
 vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
     // cerr<<"outloop";
     vector<string> moves(0);
@@ -1021,12 +908,17 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
                 string initialstring = "RS "+to_string(hp1pcl.first)+" "+to_string(hp1pcl.second)+" RE "+to_string(hp2pcl.first)+" "+to_string(hp2pcl.second)+" X "+to_string(hptbr.first)+" "+to_string(hptbr.second);  
                 ChangeBoard(ismyturn, tempboard, initialstring);
                 vector<pair<int, int> > tempringsabell;
+                int ringout;
                 if(ismyturn)    
-                    tempringsabell = tempboard->myringpos;
+                    {tempringsabell = tempboard->myringpos;
+                    ringout = tempboard->myringout;}
                 else 
-                    tempringsabell = tempboard->oppringpos;
+                    {tempringsabell = tempboard->oppringpos;
+                    ringout = tempboard->oppringout;}
+                    
                 for (auto r: tempringsabell){
                     // cerr<<"b";
+                    if(ringout>=3) break;
                     vector<pair<int, int> > list = neighbourPosition(tempboard, r.first, r.second);
                     for(auto mymove : list){
                         auto temptempboard=tempboard->copyBoard();
@@ -1079,8 +971,19 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
         int i =0;
         string initialstring = "";
         for(auto pcl : precontlist){
+            vector<pair<int, int> > tempringsabell;    
+            int ringout;        
+            if(ismyturn)    
+                ringout = tempboard->myringout;
+            else 
+                ringout = tempboard->oppringout;
+            if(ringout>=3) {
+                break;
+            }
+                
             // cerr<<"a";
             // for(auto ptbr:ringsabell){
+
                 auto ptbr = ringsabell[i];
                 for(auto x:ringsabell){
                     // cerr<<x.first<<","<<x.second<<endl;
@@ -1097,15 +1000,20 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
                 ChangeBoard(ismyturn, tempboard, initialstring);
                 i++;
             }
-                vector<pair<int, int> > tempringsabell;
-                if(ismyturn)    
-                    tempringsabell = tempboard->myringpos;
-                else 
-                    tempringsabell = tempboard->oppringpos;
-                for (auto r: tempringsabell){
+                
                     // cerr<<"b";
-                    vector<pair<int, int> > list = neighbourPosition(tempboard, r.first, r.second);
-                    for(auto mymove : list){
+            for (auto r:tempboard->myringpos){
+                vector<pair<int, int> > list = neighbourPosition(tempboard, r.first, r.second);
+                for(auto mymove : list){
+                        int ringout;
+                        if(ismyturn)    
+                            ringout = tempboard->myringout;
+                        else 
+                            ringout = tempboard->oppringout;
+                        if(ringout>=3) {
+                            moves.push_back(initialstring);
+                            break;
+                        }
                         auto temptempboard=tempboard->copyBoard();
                         auto hpr=coordinatebackConversion(r.first, r.second);
                         auto hpmymove=coordinatebackConversion(mymove.first, mymove.second);
@@ -1124,9 +1032,9 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
                             // cerr<<"d";
                             vector<pair<int, int> > temptempringsabell;
                             if(ismyturn)    
-                                tempringsabell = temptempboard->myringpos;
+                                temptempringsabell = temptempboard->myringpos;
                             else 
-                                tempringsabell = temptempboard->oppringpos;
+                                temptempringsabell = temptempboard->oppringpos;
                             for(auto cl : contlist){
                                 for(auto tbr:temptempringsabell){
                                     // hey = initialstring+" S "+to_string(r.first)+" "+to_string(r.second)+" M "+to_string(mymove.first)+" "+to_string(mymove.second);
@@ -1148,6 +1056,11 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
                             hey = initialstring+ "S "+to_string(hpr.first)+" "+to_string(hpr.second)+" M "+to_string(hpmymove.first)+" "+to_string(hpmymove.second);
                             for(auto cl : contlist){
                                 // cerr<<"loop3";
+                                    vector<pair<int, int> > tempringsabell;
+                                    if(ismyturn)    
+                                        tempringsabell = tempboard->myringpos;
+                                    else 
+                                        tempringsabell = tempboard->oppringpos;        
                                     auto tbr = tempringsabell[i];
                                     // hey = initialstring+" S "+to_string(r.first)+" "+to_string(r.second)+" M "+to_string(mymove.first)+" "+to_string(mymove.second);
                                     pair<int, int> hp1cl=coordinatebackConversion(cl.first.first, cl.first.second);
@@ -2696,43 +2609,113 @@ string GamePlay::nextMove()
 {
 
     int x, y;
-    if((curboard->myringpos.size()+curboard->myringout)<5){
+    if((curboard->myringpos.size()+curboard->myringout)<startring){
          while(true){
             if(curboard->myringpos.size()>3){
                 if(curboard->oppringpos.size()==0){
-                    x = 4; y = 9;
+                    x = size-1; y = 2*size-1;
                     if(curboard->b[x][y]==0) break;    
                 }
                 else{
-                    auto op = curboard->oppringpos[curboard->oppringpos.size()-1];
-                    int a = op.first;
-                    int b = op.second;
-                    x = a-1; y = b;
-                    if(curboard->b[x][y]==0) break;
-                    x = a+1; y = b;
-                    if(curboard->b[x][y]==0) break;
-                    x = a; y = b-1;
-                    if(curboard->b[x][y]==0) break;
-                    x = a; y = b+1;
-                    if(curboard->b[x][y]==0) break;
-                    x = a-1; y = b-1;
-                    if(curboard->b[x][y]==0) break;
-                    x = a+1; y = b+1;
-                    if(curboard->b[x][y]==0) break;
+                    if(curboard->oppringpos.size()>0)
+                    {    auto op = curboard->oppringpos[curboard->oppringpos.size()-1];
+                        int a = op.first;
+                        int b = op.second;
+                        x = a-1; y = b;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a+1; y = b;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a; y = b-1;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a; y = b+1;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a-1; y = b-1;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a+1; y = b+1;
+                    }    if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                    if(curboard->oppringpos.size()>1)
+                    {   auto op = curboard->oppringpos[curboard->oppringpos.size()-2];
+                        int a = op.first;
+                        int b = op.second;
+                        x = a-1; y = b;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a+1; y = b;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a; y = b-1;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a; y = b+1;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a-1; y = b-1;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a+1; y = b+1;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                    }
+                    if(curboard->oppringpos.size()>2)
+                    {   auto op = curboard->oppringpos[curboard->oppringpos.size()-3];
+                        int a = op.first;
+                        int b = op.second;
+                        x = a-1; y = b;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a+1; y = b;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a; y = b-1;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a; y = b+1;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a-1; y = b-1;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a+1; y = b+1;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                    }
+                    if(curboard->oppringpos.size()>3)
+                    {   auto op = curboard->oppringpos[curboard->oppringpos.size()-4];
+                        int a = op.first;
+                        int b = op.second;
+                        x = a-1; y = b;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a+1; y = b;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a; y = b-1;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a; y = b+1;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a-1; y = b-1;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a+1; y = b+1;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                    }
+                    if(curboard->oppringpos.size()>4)
+                    {   auto op = curboard->oppringpos[curboard->oppringpos.size()-5];
+                        int a = op.first;
+                        int b = op.second;
+                        x = a-1; y = b;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a+1; y = b;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a; y = b-1;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a; y = b+1;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a-1; y = b-1;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                        x = a+1; y = b+1;
+                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+                    }
+
                 }
             }
 
             else{
-             if(curboard->b[5][5]==-1){
-                x = 4; y = 9;
+             if(curboard->b[size][size]==-1){
+                x = size-1; y = 2*size-1;
                 if(curboard->b[x][y]==0) break;
-                x = 3; y = 8;
+                x = size-2; y = 2*size-2;
                 if(curboard->b[x][y]==0) break;
-                x = 2; y = 7;
+                x = size-3; y = 2*size-3;
                 if(curboard->b[x][y]==0) break;
-                x = 1; y = 6;
+                x = size-4; y = 2*size-4;
                 if(curboard->b[x][y]==0) break;
-                x = 0; y = 4;
+                x = size-5; y = 2*size-4;
                 if(curboard->b[x][y]==0) break;
                 x = 0; y = 3;
                 if(curboard->b[x][y]==0) break;
@@ -2773,7 +2756,7 @@ string GamePlay::nextMove()
          return "P "+to_string(hp.first)+" "+ to_string(hp.second);
     }
     else{
-        return miniMax(this->curboard, 2);
+        return miniMax(this->curboard, 1);
         // return miniMaxAlt();
     }
 
@@ -2805,7 +2788,7 @@ string GamePlay::miniMax(Board* board, int depth){
     // cerr<<"minimax starts"<<"\n";
     pair<int, string> posvalue;
 
-    posvalue = maxValue(board, -10000, +10000, depth);
+    posvalue = maxValue(board, -INT_MAX, +INT_MAX, depth);
     vector<string> neighbours = GamePlay::neighbours(board, false);
     // for (string n : neighbours) {
     //     cerr<<n<<endl;
@@ -2820,70 +2803,33 @@ string GamePlay::miniMax(Board* board, int depth){
     cerr<<"opp ring out"<<board->oppringout<<endl;
     return posvalue.second;
 }
-pair<int, string> GamePlay::maxValue(Board* board, int alpha, int beta, int depth){
-    // cerr<<"---------------- at level"<<depth<<"\n";
-    if(depth>=4){
-        // Board* newboard = board->flipBoard();
-        string s = "";
-        return make_pair(0, s);
-    }
-    int posValue = -INT_MAX;
-    string move;
-    vector<string> neighbours = GamePlay::neighbours(board, true);
-    int hi=0;
-    for (string n : neighbours) {
-        Board* newboard = board->copyBoard();
-        ChangeBoard(true, newboard, n);
-        newboard = newboard->flipBoard(); 
-        pair<int, string> newValue = maxValue(newboard, alpha, beta, depth+1);
-        // cerr<<n<<"--"<<hi<<"/"<<neighbours.size()<<"-----------"<<newValue.first<<endl;
-        string thismove=newValue.second;
-        if(thismove!="")
-        {
-            cerr<<n<<","<<newValue.second<<endl;
-            ChangeBoard(true,newboard,thismove);
-        }
-        newboard = newboard->flipBoard(); 
-        int ans=calcEval(newboard);
-        if ( ans > posValue ) {
-            posValue = ans;
-            move = n;
-        }                                               
-        hi++;
-    // alpha = max(alpha, newValue.first);
-    // if(alpha>=beta) return make_pair(posValue, move);
-    }
-    
-  return make_pair(0, move);
-}
 // pair<int, string> GamePlay::maxValue(Board* board, int alpha, int beta, int depth){
 //     // cerr<<"---------------- at level"<<depth<<"\n";
 //     if(depth>=4){
 //         // Board* newboard = board->flipBoard();
 //         string s = "";
-//         return make_pair(calcEval(board), s);
+//         return make_pair(0, s);
 //     }
-//     float posValue = -INT_MAX;
-//     string move="loda";
-//     vector<string> neigh = neighbours(board, true);
-//     // cerr<<"-----------------------------max"<<endl;
-//     // board->printBoard();
+//     int posValue = -INT_MAX;
+//     string move;
+//     vector<string> neighbours = GamePlay::neighbours(board, true);
 //     int hi=0;
-//     for (string n : neigh) {
+//     for (string n : neighbours) {
 //         Board* newboard = board->copyBoard();
 //         ChangeBoard(true, newboard, n);
-//         // newboard = newboard->flipBoard(); 
-//         pair<int, string> newValue = minValue(newboard, alpha, beta, depth+1);
+//         newboard = newboard->flipBoard(); 
+//         pair<int, string> newValue = maxValue(newboard, alpha, beta, depth+1);
 //         // cerr<<n<<"--"<<hi<<"/"<<neighbours.size()<<"-----------"<<newValue.first<<endl;
-//         // string thismove=newValue.second;
-//         // if(thismove!="")
-//         //     ChangeBoard(true,newboard,thismove);
-//         // newboard = newboard->flipBoard(); 
-//         // int ans=calcEval(newboard);
-//         // cerr<<"print"<<endl;
-//         cerr<<n<<","<<newValue.second<<endl;
-//         if ( newValue.first > posValue ) {
-//             posValue = newValue.first;
+//         string thismove=newValue.second;
+//         if(thismove!="")
+//         {
+//             cerr<<n<<","<<newValue.second<<endl;
+//             ChangeBoard(true,newboard,thismove);
+//         }
+//         newboard = newboard->flipBoard(); 
+//         int ans=calcEval(newboard);
+//         if ( ans > posValue ) {
+//             posValue = ans;
 //             move = n;
 //         }                                               
 //         hi++;
@@ -2891,8 +2837,45 @@ pair<int, string> GamePlay::maxValue(Board* board, int alpha, int beta, int dept
 //     // if(alpha>=beta) return make_pair(posValue, move);
 //     }
     
-//   return make_pair(posValue, move);
+//   return make_pair(0, move);
 // }
+pair<int, string> GamePlay::maxValue(Board* board, int alpha, int beta, int depth){
+    // cerr<<"---------------- at level"<<depth<<"\n";
+    if(depth>=4){
+        // Board* newboard = board->flipBoard();
+        string s = "";
+        return make_pair(calcEval(board), s);
+    }
+    float posValue = -INT_MAX;
+    string move;
+    vector<string> neigh = neighbours(board, true);
+    // cerr<<"-----------------------------max"<<endl;
+    // board->printBoard();
+    int hi=0;
+    for (string n : neigh) {
+        Board* newboard = board->copyBoard();
+        ChangeBoard(true, newboard, n);
+        // newboard = newboard->flipBoard(); 
+        pair<int, string> newValue = minValue(newboard, alpha, beta, depth+1);
+        // cerr<<n<<"--"<<hi<<"/"<<neighbours.size()<<"-----------"<<newValue.first<<endl;
+        // string thismove=newValue.second;
+        // if(thismove!="")
+        //     ChangeBoard(true,newboard,thismove);
+        // newboard = newboard->flipBoard(); 
+        // int ans=calcEval(newboard);
+        // cerr<<"print"<<endl;
+        // cerr<<n<<","<<newValue.second<<endl;
+        if ( newValue.first > posValue ) {
+            posValue = newValue.first;
+            move = n;
+        }                                               
+        hi++;
+    alpha = max(alpha, newValue.first);
+    if(alpha>=beta) return make_pair(posValue, move);
+    }
+    
+  return make_pair(posValue, move);
+}
 pair<int, string> GamePlay::minValue(Board* board, int alpha, int beta, int depth){
     // cerr<<"---------------- at level"<<depth<<"\n";
     if(depth>=4){
@@ -2900,7 +2883,7 @@ pair<int, string> GamePlay::minValue(Board* board, int alpha, int beta, int dept
         return make_pair(calcEval(board), s);
     }
     int posValue = INT_MAX;
-    string move="loda";
+    string move;
     vector<string> neigh = neighbours(board, false);
     // cerr<<"-----------------------------min"<<endl;
     // board->printBoard();
@@ -2914,15 +2897,15 @@ pair<int, string> GamePlay::minValue(Board* board, int alpha, int beta, int dept
             posValue = newValue.first;
             move = n;
         }
-        // beta = min(beta, newValue.first);
-        // if(alpha>=beta) return make_pair(posValue, move);
+        beta = min(beta, newValue.first);
+        if(alpha>=beta) return make_pair(posValue, move);
     }
   return make_pair(posValue, move);
 }
 int GamePlay::calcnayaEval(Board* board){
     vector<int> list = calcContinuous(board, true);
     vector<int> list2 = calcContinuous(board, false);
-//0
+    //0
     int good = 0;
 
     // vector<float> wt {0,1,3,9,27,81,0.5,1.5,4.5,13.5,40.5};
@@ -3235,7 +3218,7 @@ int GamePlay::calcEval(Board* board)
     // cout<<"Y+ ->"<<goodness<<endl;
     int startx = 1;
     int starty = 0;
-    for(int i=5;i>=0;i--){  
+    for(int i=size;i>=0;i--){  
         int x = i;
         int y = 0;
         startx=i;
@@ -3368,7 +3351,7 @@ int GamePlay::calcEval(Board* board)
         // }
     }
     // cout<<"D+ ->"<<goodness<<endl;
-    for(int j=1;j<=5;j++){
+    for(int j=1;j<=size;j++){
         int x = 0;
         int y = j;
         startx=0;
@@ -3720,7 +3703,7 @@ int GamePlay::calcEval(Board* board)
     // cout<<"Y- ->"<<goodness<<endl;
     startx = 0;
     starty = 0;
-    for(int i=5;i>=0;i--){  
+    for(int i=size;i>=0;i--){  
         int x = i;
         int y = 0;
         startx=i;
@@ -3828,7 +3811,7 @@ int GamePlay::calcEval(Board* board)
         // }
     }
     // cout<<"D- ->"<<goodness<<endl;
-    for(int j=1;j<=5;j++){
+    for(int j=1;j<=size;j++){
         int x = 0;
         int y = j;
         startx=0;
@@ -3948,7 +3931,7 @@ int GamePlay::calcEval(Board* board)
     //// consider for gaining a ring out
 
 
-//-------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------
     // vector<int> v=totalOppRingClash(board);
     // goodness-=v[2]*14000;
     // goodness-=v[1]*700;
@@ -3958,7 +3941,7 @@ int GamePlay::calcEval(Board* board)
     // goodness+=v[1]*700;
     // goodness+=v[0]*35;
 
-//-------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------
 
     // v=totalMarkerSpaceRing(board);
     // goodness-=v[2]*800;

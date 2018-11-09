@@ -159,19 +159,82 @@ void Board::setEval(double eval)
     this->eval=eval;
 }
 
-void Board::printBoard(){
-    vector<vector<char> > matrix(19);
-    for(int i=0;i<19;i++){
-        matrix[i].resize(11, ' ');
-    }
+// void Board::printBoard(){
+//     vector<vector<char> > matrix(2*size-1);
+//     for(int i=0;i<2*size-1;i++){
+//         matrix[i].resize(2*size+1, ' ');
+//     }
 
+
+//     cerr<<"  ";
+//     // for(int i=0;i<2*size+1;i++){
+//     //     cerr<<i<<" ";
+//     // }
+//     cerr<<"\n";
+
+//     for(int x=0;x<4*size+1;x++)
+//     {
+//     // cerr<<i<<" ";
+//         for(int y=0;y<2*size+1;y++)
+//         {
+//             char a=' ';
+//             switch(b[x][y])
+//             {
+//                 case 3:
+//                 a=' ';
+//                 break;
+//                 case 2:
+//                 a='o';
+//                 break;
+//                 case 1:
+//                 a='0';
+//                 break;
+//                 case 0:
+//                 a='.';
+//                 break;
+//                 case -1:
+//                 a='#';
+//                 break;
+//                 case -2:
+//                 a='x';
+//                 break;
+//             }
+//             // cerr<<x<<y<<endl;
+//             if(a == ' '){
+//                 // cerr<<'n';
+//                 // matrix[y-2*x+14][y] = a;
+//             }
+//             else
+//             {
+//                 matrix[y-2*x+3*size-1][y] = a;
+                
+//                 // cerr<<a;
+//             }
+//         }
+        
+//         // cerr<<"init done";
+//     }
+//     for(int i=0;i<4*size-1;i++){
+//             for(int j=0;j<2*size+1;j++){
+//                 cerr<<matrix[i][j]<<"  ";
+//             }
+//             cerr<<endl;
+//         }
+// }
+
+
+void Board::printBoard(){
+    
+    vector<vector<char> > matrix(4*size-1);
+    for(int i=0;i<4*size-1;i++){
+        matrix[i].resize(2*size+1, ' ');
+    }
 
     cerr<<"  ";
     // for(int i=0;i<2*size+1;i++){
     //     cerr<<i<<" ";
     // }
     cerr<<"\n";
-
     for(int x=0;x<2*size+1;x++)
     {
     // cerr<<i<<" ";
@@ -206,20 +269,22 @@ void Board::printBoard(){
             }
             else
             {
-                matrix[y-2*x+14][y] = a;
+                // cerr<<size;
+                if(size==5)
+                    matrix[y-2*x+14][y] = a;
+                else
+                    matrix[y-2*x+17][y] = a;
                 
                 // cerr<<a;
             }
-        }
-        
+        }        
         // cerr<<"init done";
     }
-    for(int i=0;i<19;i++){
-            for(int j=0;j<11;j++){
-                cerr<<matrix[i][j]<<"  ";
-            }
-            cerr<<endl;
+    for(int i=0;i<4*size-1;i++){
+        for(int j=0;j<2*size+1;j++){
+            cerr<<matrix[i][j]<<"  ";
         }
+        cerr<<endl;
+    }
+
 }
-
-

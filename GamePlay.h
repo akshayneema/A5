@@ -32,6 +32,8 @@ private:
     // double ** distanceMatrix;
 
     int size;
+    int contmarker;
+    int startring;
     int MAX_DEPTH;
 
     double processingTimeInMinutes ;
@@ -40,7 +42,7 @@ private:
 
 public:
     GamePlay();
-    GamePlay(int size);
+    GamePlay(int size, int contmarker);
     Board *curboard;
     
     

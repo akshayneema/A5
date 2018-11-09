@@ -42,7 +42,10 @@ int main(int argc, char** argv) {
     
     int player_id, board_size, time_limit;
     string move;
-    GamePlay *g = new GamePlay(5);
+    int s;
+    cin >> player_id >> board_size >> time_limit >> s;
+    cin.ignore();
+    GamePlay *g = new GamePlay(board_size, s);
     // cout<<"chalu"<<endl;
     // test function for checking conversion
     
@@ -116,8 +119,22 @@ int main(int argc, char** argv) {
     // g->ChangeBoard(true, g->curboard, s);
     // cout<<"-----------"<<s<<"\n";
 
+/////// rockboy /////////
+
+// g->ChangeBoard(true, g->curboard, "P 1 4");g->curboard->printBoard();
+// g->ChangeBoard(false, g->curboard, "P 0 0");g->curboard->printBoard();
+// g->ChangeBoard(true, g->curboard, "P 1 5");g->curboard->printBoard();
+// g->ChangeBoard(false, g->curboard, "P 1 3");g->curboard->printBoard();
+// g->ChangeBoard(true, g->curboard, "P 2 6");g->curboard->printBoard();
+// g->ChangeBoard(false, g->curboard, "P 2 8");g->curboard->printBoard();
+// g->ChangeBoard(true, g->curboard, "P 2 7");g->curboard->printBoard();
+// g->ChangeBoard(false, g->curboard, "P 6 21");g->curboard->printBoard();
+// string yoda = g->nextMove();
+// cerr<<yoda;
+
+
 //////////////dieeeeeee////////////////////
-    
+// cerr<<"bwahaha";
 // g->ChangeBoard(false, g->curboard, "P 1 2");g->curboard->printBoard();
 // g->ChangeBoard(true, g->curboard,"P 5 9");g->curboard->printBoard();
 // g->ChangeBoard(false, g->curboard, "P 2 8");g->curboard->printBoard();
@@ -166,7 +183,7 @@ int main(int argc, char** argv) {
 // vector<string> list=g->neighbours(g->curboard,true);
 // for(auto l:list)
 // {
-//     cout<<l<<endl;
+//     cerr<<l<<endl;
 // }
 
 //////////////dieeeeeee////////////////////
@@ -311,8 +328,8 @@ int main(int argc, char** argv) {
 // g->ChangeBoard(true, g->curboard, "S 0 0 M 2 8");
 // g->ChangeBoard(false, g->curboard, "S 1 5 M 2 7");
     ///give me some space
-   cin >> player_id >> board_size >> time_limit;
-    cin.ignore();
+    
+    
     if(player_id == 2) {
         // Get other player's move
         getline(cin, move); 

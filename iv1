@@ -1,0 +1,63 @@
+Time remaining is: 150s
+You played : P 4 16
+Player 2 played : P 0 0
+Time remaining is: 149s
+You played : P 2 2
+Player 2 played : P 1 0
+Time remaining is: 149s
+You played : P 3 16
+Player 2 played : P 1 1
+Time remaining is: 149s
+You played : P 2 0
+Player 2 played : P 1 2
+Time remaining is: 149s
+You played : P 5 12
+Player 2 played : P 4 9
+Time remaining is: 149s
+You played : S 3 16 M 3 17
+Player 2 played : S 1 1 M 2 1
+Time remaining is: 149s
+You played : S 2 0 M 4 18
+Player 2 played : S 1 0 M 3 0
+Time remaining is: 148s
+You played : S 3 17 M 2 11
+Player 2 played : S 1 2 M 1 3
+Time remaining is: 147s
+You played : S 2 11 M 3 1
+Player 2 played : S 2 1 M 4 22
+Time remaining is: 145s
+You played : S 2 2 M 2 3
+Player 2 played : S 3 0 M 4 0
+Time remaining is: 145s
+You played : S 5 12 M 2 6
+Player 2 played : S 4 22 M 5 27
+Time remaining is: 144s
+You played : S 4 18 M 2 10
+Player 2 played : S 5 27 M 5 29 RS 5 27 RE 2 1 X 4 9
+Time remaining is: 142s
+You played : S 4 16 M 4 14
+Player 2 played : S 4 0 M 2 0
+Time remaining is: 141s
+You played : S 2 3 M 4 10
+Player 2 played : S 2 0 M 3 4
+Time remaining is: 140s
+You played : S 2 10 M 1 5
+Player 2 played : S 0 0 M 1 4
+Time remaining is: 139s
+You played : S 1 5 M 2 9
+Player 2 played : S 1 4 M 2 8
+Time remaining is: 139s
+You played : S 2 6 M 3 5
+Player 2 played : S 2 8 M 2 7 RS 2 8 RE 2 2 X 3 4
+Time remaining is: 137s
+You played : S 3 5 M 1 1
+Player 2 played : S 2 7 M 3 11
+Time remaining is: 135s
+You played : S 2 9 M 5 21
+Player 2 played : S 3 11 M 4 15
+Time remaining is: 135s
+You played : S 1 1 M 0 0
+Player 2 played : S 4 15 M 5 19
+Time remaining is: 134s
+You played : S 4 10 M 5 9
+ERROR : INVALID MOVE BY PLAYER 2
