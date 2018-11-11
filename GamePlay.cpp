@@ -828,6 +828,7 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
     // cerr<<"outloop";
     if(precontlist.empty()==true){
         // cerr<<"stilloutloop";
+        // cerr<<"No continous marker"<<endl;
          string initialstring="";
          for (auto r: ringsabell){
             //  cerr<<"loop1";
@@ -894,6 +895,7 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
                     }
                 }
     else if(precontlist.size()==1){
+        // cerr<<"1 cont marker"<<endl;
         for(auto pcl : precontlist){
             // cerr<<"a";
             for(auto ptbr:ringsabell){
@@ -968,26 +970,35 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
         }
     }
     else {
+        // cerr<<"more than 1 cont marker"<<endl;
+        // cerr<<"number of cont marker="<<precontlist.size()<<endl;
+        tempboard=board->copyBoard(); 
         int i =0;
         string initialstring = "";
         for(auto pcl : precontlist){
+            // cerr<<"in loop"<<endl;
             vector<pair<int, int> > tempringsabell;    
             int ringout;        
-            if(ismyturn)    
+            if(ismyturn)   
+            { 
                 ringout = tempboard->myringout;
+
+            }
             else 
                 ringout = tempboard->oppringout;
+            // cerr<<"ringout="<<ringout<<endl;
             if(ringout>=3) {
                 break;
             }
-                
+                // cerr<<"idhar"<<endl;
             // cerr<<"a";
             // for(auto ptbr:ringsabell){
 
                 auto ptbr = ringsabell[i];
-                for(auto x:ringsabell){
-                    // cerr<<x.first<<","<<x.second<<endl;
-                }
+                // cerr<<"ptbr="<<ptbr.first<<","<<ptbr.second<<endl;
+                // for(auto x:ringsabell){
+                //     // cerr<<x.first<<","<<x.second<<endl;
+                // }
                 // cerr<<"2";
                 tempboard=board->copyBoard();    
                 pair<int, int> hp1pcl=coordinatebackConversion(pcl.first.first, pcl.first.second);
@@ -998,6 +1009,7 @@ vector<string> GamePlay::neighbours(Board* board, bool ismyturn){
                 else         
                     initialstring += " RS "+to_string(hp1pcl.first)+" "+to_string(hp1pcl.second)+" RE "+to_string(hp2pcl.first)+" "+to_string(hp2pcl.second)+" X "+to_string(hptbr.first)+" "+to_string(hptbr.second);  
                 ChangeBoard(ismyturn, tempboard, initialstring);
+                // cerr<<initialstring<<endl;
                 i++;
             }
                 
@@ -2789,7 +2801,7 @@ string GamePlay::miniMax(Board* board, int depth){
     pair<int, string> posvalue;
 
     posvalue = maxValue(board, -INT_MAX, +INT_MAX, depth);
-    vector<string> neighbours = GamePlay::neighbours(board, false);
+    // vector<string> neighbours = GamePlay::neighbours(board, false);
     // for (string n : neighbours) {
     //     cerr<<n<<endl;
     // }
@@ -2851,13 +2863,28 @@ pair<int, string> GamePlay::maxValue(Board* board, int alpha, int beta, int dept
     vector<string> neigh = neighbours(board, true);
     // cerr<<"-----------------------------max"<<endl;
     // board->printBoard();
-    int hi=0;
-    for (string n : neigh) {
+    //sorting neighbours in decending order
+    vector<pair<int,string>> sortneigh;
+    for(string n: neigh)
+    {
         Board* newboard = board->copyBoard();
         ChangeBoard(true, newboard, n);
-        // newboard = newboard->flipBoard(); 
-        pair<int, string> newValue = minValue(newboard, alpha, beta, depth+1);
-        // cerr<<n<<"--"<<hi<<"/"<<neighbours.size()<<"-----------"<<newValue.first<<endl;
+        sortneigh.push_back(make_pair(calcEval(newboard),n));
+    }
+    sort(sortneigh.begin(), sortneigh.end(), greater<int>());
+    int hi=1;
+    for (string n : neigh) {
+        // cerr<<"max depth="<<depth<<"-----"<<n<<"------------"<<hi<<"/"<<neigh.size()<<endl;
+        Board* newboard = board->copyBoard();
+        ChangeBoard(true, newboard, n);
+        // newboard = newboard->flipBoard();
+        pair<int, string> newValue; 
+        if(newboard->myringout>=3 || newboard->oppringout>=3)
+            newValue=make_pair(calcEval(newboard),"");
+        else 
+            newValue = minValue(newboard, alpha, beta, depth+1);
+        // if(depth==1)
+        //     cerr<<n<<"--"<<hi<<"/"<<neigh.size()<<"-----------"<<newValue.first<<" "<<newValue.second<<endl;
         // string thismove=newValue.second;
         // if(thismove!="")
         //     ChangeBoard(true,newboard,thismove);
@@ -2887,11 +2914,17 @@ pair<int, string> GamePlay::minValue(Board* board, int alpha, int beta, int dept
     vector<string> neigh = neighbours(board, false);
     // cerr<<"-----------------------------min"<<endl;
     // board->printBoard();
+    int num=1;
     for (string n : neigh) {
-        
+        // cerr<<"min depth="<<depth<<"-----"<<n<<"-------"<<num<<"/"<<neigh.size()<<endl;
         Board* newboard = board->copyBoard();
         ChangeBoard(false, newboard, n);
-        pair<int, string> newValue = maxValue(newboard, alpha, beta, depth+1);
+        pair<int, string> newValue; 
+        if(newboard->myringout>=3 || newboard->oppringout>=3)
+            newValue=make_pair(calcEval(newboard),"");
+        else 
+            newValue = maxValue(newboard, alpha, beta, depth+1);
+        // pair<int, string> newValue = maxValue(newboard, alpha, beta, depth+1);
         // cerr<<n<<"------         "<<newValue.first<<endl;
         if ( newValue.first < posValue ) {
             posValue = newValue.first;
@@ -2899,6 +2932,7 @@ pair<int, string> GamePlay::minValue(Board* board, int alpha, int beta, int dept
         }
         beta = min(beta, newValue.first);
         if(alpha>=beta) return make_pair(posValue, move);
+        num++;
     }
   return make_pair(posValue, move);
 }
@@ -3951,10 +3985,21 @@ int GamePlay::calcEval(Board* board)
     // goodness-=v[2]*10000;
     // goodness-=v[1]*100;
     // goodness-=(totalMyRingClash(board)/(5-board->myringout))*400;
-
-    goodness+=board->myringout*200000;
-    // cout<<"Ring+ ->"<<goodness<<endl;
-    goodness-=board->oppringout*200000;
+    if(board->myringout==1)
+        goodness+=100000;
+    if(board->myringout==2)
+        goodness+=500000;
+    if(board->myringout==3)
+        goodness+=1500000;
+    if(board->oppringout==1)
+        goodness-=100000;
+    if(board->oppringout==2)
+        goodness-=500000;
+    if(board->oppringout==3)
+        goodness-=1500000;
+    // goodness+=board->myringout*200000;
+    // // cout<<"Ring+ ->"<<goodness<<endl;
+    // goodness-=board->oppringout*200000;
     // cout<<"Ring- ->"<<goodness<<endl;
     return goodness;
     // return 1; 

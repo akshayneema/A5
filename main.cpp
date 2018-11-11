@@ -252,84 +252,73 @@ int main(int argc, char** argv) {
 // {
 //     cout<<l<<endl;
 // }
-
-
-// g->ChangeBoard(true, g->curboard, "P 0 0");
-// g->ChangeBoard(false, g->curboard, "P 2 5");
-// g->ChangeBoard(true, g->curboard, "P 1 0");
-// g->ChangeBoard(false, g->curboard, "P 1 2");
-// g->ChangeBoard(true, g->curboard, "P 1 1");
-// g->ChangeBoard(false, g->curboard, "P 2 4");
-// g->ChangeBoard(true, g->curboard, "P 1 3");
-// g->ChangeBoard(false, g->curboard, "P 2 6");
-// g->ChangeBoard(true, g->curboard, "P 1 4");
-// g->ChangeBoard(false, g->curboard, "P 2 7");
-// g->ChangeBoard(true, g->curboard, "S 0 0 M 1 5");
-// g->ChangeBoard(false, g->curboard, "S 2 6 M 5 18");
-// g->ChangeBoard(true, g->curboard, "S 1 3 M 3 9");
-// g->ChangeBoard(false, g->curboard, "S 1 2 M 4 5");
-// g->ChangeBoard(true, g->curboard, "S 3 9 M 4 12");
-// g->ChangeBoard(false, g->curboard, "S 2 5 M 3 10");
-// g->ChangeBoard(true, g->curboard, "S 1 4 M 2 8");
-// g->ChangeBoard(false, g->curboard, "S 2 7 M 2 3");
-// g->ChangeBoard(true, g->curboard, "S 1 1 M 2 2");
-// g->ChangeBoard(false, g->curboard, "S 2 3 M 4 7");
-// g->ChangeBoard(true, g->curboard, "S 1 5 M 3 13");
-// g->ChangeBoard(false, g->curboard, "S 2 4 M 2 10");
-// g->ChangeBoard(true, g->curboard, "S 1 0 M 2 9");
-// g->ChangeBoard(false, g->curboard, "S 4 7 M 3 5");
-// g->curboard->printBoard();
-// vector<string> list=g->neighbours(g->curboard,true);
-// for(auto l:list)
-// {   
-//     Board* tempboard = g->curboard->copyBoard();
-//     g->ChangeBoard(true, tempboard, l);
-//     cout<<l<<" -> eval value : "<<g->calcEval(tempboard)<<endl;
-// }
-// cout<<g->nextMove();
-// cout<<g->miniMaxAlt();
-
-    ///dont give me some space
-//     g->ChangeBoard(true, g->curboard, "P 0 0");
-// g->ChangeBoard(false, g->curboard, "P 1 1");
-// g->ChangeBoard(true, g->curboard, "P 1 0");
-// g->ChangeBoard(false, g->curboard, "P 1 3");
-// g->ChangeBoard(true, g->curboard, "P 1 2");
-// g->ChangeBoard(false, g->curboard, "P 1 5");
-// g->ChangeBoard(true, g->curboard, "P 2 5");
-// g->ChangeBoard(false, g->curboard, "P 2 4");
-// g->ChangeBoard(true, g->curboard, "P 3 7");
-// g->ChangeBoard(false, g->curboard, "P 1 4");
-// g->ChangeBoard(true, g->curboard, "S 1 2 M 2 3");
-// g->ChangeBoard(false, g->curboard, "S 1 4 M 4 13");
-// g->ChangeBoard(true, g->curboard, "S 3 7 M 3 8");
-// g->ChangeBoard(false, g->curboard, "S 4 13 M 3 9");
-// g->curboard->printBoard();
-//             string mymove = g->nextMove();
-// g->curboard->printBoard();
-            
-
-
-// ////
-// g->ChangeBoard(true, g->curboard, "S 2 3 M 3 4");
-// g->ChangeBoard(false, g->curboard, "S 2 4 M 4 10");
-// g->ChangeBoard(true, g->curboard, "S 2 5 M 4 9");
-// g->ChangeBoard(false, g->curboard, "S 4 10 M 2 2");
-// g->ChangeBoard(true, g->curboard, "S 4 9 M 3 6");
-// g->ChangeBoard(false, g->curboard, "S 1 1 M 3 5");
-// g->ChangeBoard(true, g->curboard, "S 3 8 M 2 6");
-// g->ChangeBoard(false, g->curboard, "S 3 9 M 4 11");
-// g->ChangeBoard(true, g->curboard, "S 1 0 M 2 1");
-// g->ChangeBoard(false, g->curboard, "S 4 11 M 5 14");
-// g->ChangeBoard(true, g->curboard, "S 2 6 M 3 10");
-// g->ChangeBoard(false, g->curboard, "S 1 3 M 5 11");
-// g->ChangeBoard(true, g->curboard, "S 3 10 M 5 13");
-// g->ChangeBoard(false, g->curboard, "S 3 5 M 4 7");
-// g->ChangeBoard(true, g->curboard, "S 0 0 M 2 8");
-// g->ChangeBoard(false, g->curboard, "S 1 5 M 2 7");
     ///give me some space
-    
-    
+    // cerr<<"hi"<<endl;
+// g->ChangeBoard(false,g->curboard,"P 0 0");
+// g->ChangeBoard(true,g->curboard,"P 5 11");
+// g->ChangeBoard(false,g->curboard,"P 4 22");
+// g->ChangeBoard(true,g->curboard,"P 5 12");
+// g->ChangeBoard(false,g->curboard,"P 4 9");
+// g->ChangeBoard(true,g->curboard,"P 5 13");
+// g->ChangeBoard(false,g->curboard,"P 4 1");
+// g->ChangeBoard(true,g->curboard,"P 5 14");
+// g->ChangeBoard(false,g->curboard,"P 2 11");
+// g->ChangeBoard(true,g->curboard,"P 1 5");
+// g->ChangeBoard(false,g->curboard,"S 0 0 M 1 0");
+// g->ChangeBoard(true,g->curboard,"S 5 11 M 4 7");
+// g->ChangeBoard(false,g->curboard,"S 4 9 M 1 3");
+// g->ChangeBoard(true,g->curboard,"S 5 12 M 3 6");
+// g->ChangeBoard(false,g->curboard,"S 1 0 M 2 0");
+// g->ChangeBoard(true,g->curboard,"S 3 6 M 3 4");
+// g->ChangeBoard(false,g->curboard,"S 2 0 M 3 0");
+// g->ChangeBoard(true,g->curboard,"S 3 4 M 3 5");
+// g->ChangeBoard(false,g->curboard,"S 1 3 M 4 5");
+// g->ChangeBoard(true,g->curboard,"S 1 5 M 1 2");
+// g->ChangeBoard(false,g->curboard,"S 4 1 M 1 1");
+// g->ChangeBoard(true,g->curboard,"S 3 5 M 3 3 RS 5 12 RE 3 4 X 4 7");
+// g->ChangeBoard(false,g->curboard,"S 1 1 M 1 4");
+// g->ChangeBoard(true,g->curboard,"S 1 2 M 2 10");
+// g->ChangeBoard(false,g->curboard,"S 1 4 M 2 7");
+// g->ChangeBoard(true,g->curboard,"S 5 13 M 3 2");
+// g->ChangeBoard(false,g->curboard,"S 4 22 M 2 1");
+// g->ChangeBoard(true,g->curboard,"S 3 3 M 2 8");
+// g->ChangeBoard(false,g->curboard,"S 2 11 M 3 1");
+// g->ChangeBoard(true,g->curboard,"S 2 10 M 2 4");
+// g->ChangeBoard(false,g->curboard,"S 3 0 M 3 16");
+// g->ChangeBoard(true,g->curboard,"S 2 4 M 2 3");
+// g->ChangeBoard(false,g->curboard,"S 4 5 M 4 8");
+// g->ChangeBoard(true,g->curboard,"S 2 3 M 3 7");
+// g->ChangeBoard(false,g->curboard,"S 4 8 M 3 15 RS 3 0 RE 1 3 X 3 15");
+// g->ChangeBoard(true,g->curboard,"S 3 7 M 4 10");
+// g->ChangeBoard(false,g->curboard,"S 2 1 M 2 5");
+// g->ChangeBoard(true,g->curboard,"S 3 2 M 1 0");
+// g->ChangeBoard(false,g->curboard,"S 2 5 M 4 9");
+// g->ChangeBoard(true,g->curboard,"S 4 10 M 2 2");
+// g->ChangeBoard(false,g->curboard,"S 2 7 M 1 3");
+// g->ChangeBoard(true,g->curboard,"S 1 0 M 2 9");
+// g->ChangeBoard(false,g->curboard,"S 3 1 M 5 7");
+// g->ChangeBoard(true,g->curboard,"S 2 2 M 0 0");
+// g->ChangeBoard(false,g->curboard,"S 5 7 M 5 6");
+// g->ChangeBoard(true,g->curboard,"S 2 8 M 3 13");
+// g->ChangeBoard(false,g->curboard,"S 5 6 M 3 4 RS 3 1 RE 5 7 X 4 9");
+// g->ChangeBoard(true,g->curboard,"S 0 0 M 3 6 RS 2 8 RE 2 2 X 3 13");
+// g->ChangeBoard(false,g->curboard,"S 1 3 M 1 4");
+// g->ChangeBoard(true,g->curboard,"S 3 6 M 4 7");
+// g->ChangeBoard(false,g->curboard,"S 1 4 M 1 1");
+// g->ChangeBoard(true,g->curboard,"S 5 14 M 3 8");
+// g->ChangeBoard(false,g->curboard,"S 3 4 M 4 9");
+// g->ChangeBoard(true,g->curboard,"S 2 9 M 2 8");
+// g->ChangeBoard(false,g->curboard,"S 1 1 M 3 1");
+// g->ChangeBoard(true,g->curboard,"S 2 8 M 2 6"); 
+// g->ChangeBoard(false,g->curboard,"S 3 1 M 4 5");
+// g->ChangeBoard(true,g->curboard,"S 3 8 M 5 1");
+// g->ChangeBoard(false,g->curboard,"S 4 5 M 3 11");
+// g->curboard->printBoard();
+// vector<string> str=g->neighbours(g->curboard,true);
+// for(auto a: str)
+//     cerr<<a<<endl;
+// string stri=g->nextMove();
+// cerr<<stri<<endl;
     if(player_id == 2) {
         // Get other player's move
         getline(cin, move); 
