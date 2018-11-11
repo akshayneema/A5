@@ -4148,25 +4148,25 @@ int GamePlay::calcEval(Board* board)
     // goodness-=v[1]*100;
     // goodness-=(totalMyRingClash(board)/(5-board->myringout))*400;
     if(board->myringout==1 && contmarker==5)
-        goodness+=100000;
+        goodness+=200000;
     if(board->myringout==2 && contmarker==5)
         goodness+=500000;
     if(board->myringout==3 && contmarker==5)
         goodness+=1500000;
     if(board->oppringout==1 && contmarker==5)
-        goodness-=100000;
+        goodness-=200000;
     if(board->oppringout==2 && contmarker==5)
         goodness-=500000;
     if(board->oppringout==3 && contmarker==5)
         goodness-=1500000;
     if(board->myringout==1 && contmarker==6)
-        goodness+=2500000;
+        goodness+=5000000;
     if(board->myringout==2 && contmarker==6)
         goodness+=12500000;
     if(board->myringout==3 && contmarker==6)
         goodness+=32500000;
     if(board->oppringout==1 && contmarker==6)
-        goodness-=2500000;
+        goodness-=5000000;
     if(board->oppringout==2 && contmarker==6)
         goodness-=12500000;
     if(board->oppringout==3 && contmarker==6)
