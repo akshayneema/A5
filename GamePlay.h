@@ -12,7 +12,7 @@
 #include <fstream>
 #include <vector>
 #include <limits.h>
-
+#include <algorithm>
 #include "Board.h"
 // #include "Track.h"
 // #include "Session.h"

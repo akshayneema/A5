@@ -334,6 +334,7 @@ int main(int argc, char** argv) {
            g->ChangeBoard(true, g->curboard, mymove);
            
             // cerr<<"Player me"<<"\n";
+            // cerr<<"int max---------------- "<<INT_MAX<<endl;
             g->curboard->printBoard();
             // g->printMarker(g->curboard);
             getline(cin, move); 
@@ -369,6 +370,7 @@ int main(int argc, char** argv) {
             cerr<<"-----------------------------My Move "<<mymove<<endl;
              g->ChangeBoard(true, g->curboard, mymove); 
             // cerr<<"Player me"<<"\n";
+            // cerr<<"int max---------------- "<<INT_MAX<<endl;
             g->curboard->printBoard();
             // g->printMarker(g->curboard);
             getline(cin, move); 

@@ -2623,145 +2623,158 @@ string GamePlay::nextMove()
     int x, y;
     if((curboard->myringpos.size()+curboard->myringout)<startring){
          while(true){
-            if(curboard->myringpos.size()>3){
-                if(curboard->oppringpos.size()==0){
-                    x = size-1; y = 2*size-1;
-                    if(curboard->b[x][y]==0) break;    
-                }
-                else{
-                    if(curboard->oppringpos.size()>0)
-                    {    auto op = curboard->oppringpos[curboard->oppringpos.size()-1];
-                        int a = op.first;
-                        int b = op.second;
-                        x = a-1; y = b;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a+1; y = b;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a; y = b-1;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a; y = b+1;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a-1; y = b-1;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a+1; y = b+1;
-                    }    if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                    if(curboard->oppringpos.size()>1)
-                    {   auto op = curboard->oppringpos[curboard->oppringpos.size()-2];
-                        int a = op.first;
-                        int b = op.second;
-                        x = a-1; y = b;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a+1; y = b;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a; y = b-1;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a; y = b+1;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a-1; y = b-1;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a+1; y = b+1;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                    }
-                    if(curboard->oppringpos.size()>2)
-                    {   auto op = curboard->oppringpos[curboard->oppringpos.size()-3];
-                        int a = op.first;
-                        int b = op.second;
-                        x = a-1; y = b;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a+1; y = b;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a; y = b-1;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a; y = b+1;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a-1; y = b-1;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a+1; y = b+1;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                    }
-                    if(curboard->oppringpos.size()>3)
-                    {   auto op = curboard->oppringpos[curboard->oppringpos.size()-4];
-                        int a = op.first;
-                        int b = op.second;
-                        x = a-1; y = b;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a+1; y = b;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a; y = b-1;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a; y = b+1;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a-1; y = b-1;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a+1; y = b+1;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                    }
-                    if(curboard->oppringpos.size()>4)
-                    {   auto op = curboard->oppringpos[curboard->oppringpos.size()-5];
-                        int a = op.first;
-                        int b = op.second;
-                        x = a-1; y = b;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a+1; y = b;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a; y = b-1;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a; y = b+1;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a-1; y = b-1;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                        x = a+1; y = b+1;
-                        if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
-                    }
+            // if(curboard->myringpos.size()>=10){
+            //     if(curboard->oppringpos.size()==0){
+            //         x = size-1; y = 2*size-1;
+            //         if(curboard->b[x][y]==0) break;    
+            //     }
+            //     else{
+            //         if(curboard->oppringpos.size()>0)
+            //         {    auto op = curboard->oppringpos[curboard->oppringpos.size()-1];
+            //             int a = op.first;
+            //             int b = op.second;
+            //             x = a-1; y = b;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a+1; y = b;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a; y = b-1;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a; y = b+1;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a-1; y = b-1;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a+1; y = b+1;
+            //         }    if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //         if(curboard->oppringpos.size()>1)
+            //         {   auto op = curboard->oppringpos[curboard->oppringpos.size()-2];
+            //             int a = op.first;
+            //             int b = op.second;
+            //             x = a-1; y = b;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a+1; y = b;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a; y = b-1;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a; y = b+1;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a-1; y = b-1;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a+1; y = b+1;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //         }
+            //         if(curboard->oppringpos.size()>2)
+            //         {   auto op = curboard->oppringpos[curboard->oppringpos.size()-3];
+            //             int a = op.first;
+            //             int b = op.second;
+            //             x = a-1; y = b;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a+1; y = b;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a; y = b-1;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a; y = b+1;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a-1; y = b-1;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a+1; y = b+1;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //         }
+            //         if(curboard->oppringpos.size()>3)
+            //         {   auto op = curboard->oppringpos[curboard->oppringpos.size()-4];
+            //             int a = op.first;
+            //             int b = op.second;
+            //             x = a-1; y = b;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a+1; y = b;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a; y = b-1;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a; y = b+1;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a-1; y = b-1;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a+1; y = b+1;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //         }
+            //         if(curboard->oppringpos.size()>4)
+            //         {   auto op = curboard->oppringpos[curboard->oppringpos.size()-5];
+            //             int a = op.first;
+            //             int b = op.second;
+            //             x = a-1; y = b;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a+1; y = b;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a; y = b-1;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a; y = b+1;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a-1; y = b-1;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //             x = a+1; y = b+1;
+            //             if(x>=0 && y>=0 && x<=2*size && x<=2*size && curboard->b[x][y]==0) break;
+            //         }
 
-                }
-            }
-
-            else{
-             if(curboard->b[size][size]==-1){
-                x = size-1; y = 2*size-1;
+            //     }
+            // }
+            //1st turn is ours
+             if(curboard->myringpos.size()==curboard->oppringpos.size()){
+                x = 1; y = size+1;
                 if(curboard->b[x][y]==0) break;
-                x = size-2; y = 2*size-2;
+                x = 2; y = size+2;
                 if(curboard->b[x][y]==0) break;
-                x = size-3; y = 2*size-3;
+                x = 3; y = size+3;
                 if(curboard->b[x][y]==0) break;
-                x = size-4; y = 2*size-4;
+                x = 4; y = size+4;
                 if(curboard->b[x][y]==0) break;
-                x = size-5; y = 2*size-4;
+                x = 5; y = size+5;
+                if(curboard->b[x][y]==0) break;
+                x = 0; y = 5;
+                if(curboard->b[x][y]==0) break;
+                x = 0; y = 4;
                 if(curboard->b[x][y]==0) break;
                 x = 0; y = 3;
                 if(curboard->b[x][y]==0) break;
                 x = 0; y = 2;
                 if(curboard->b[x][y]==0) break;
                 x = 0; y = 1;
-                if(curboard->b[x][y]==0) break;
-                x = 4; y = 5;
-                if(curboard->b[x][y]==0) break;
-                x = 6; y = 10;
-                if(curboard->b[x][y]==0) break;  
              }
+             //second turn is ours
              else{
-                x = 5; y = 5;
+                x = size; y = size;
                 if(curboard->b[x][y]==0) break;
-                x = 6; y = 5;
+                x = size+1; y = size;
                 if(curboard->b[x][y]==0) break;
-                x = 6; y = 6;
+                x = size+1; y = size+1;
                 if(curboard->b[x][y]==0) break;
-                x = 5; y = 6;
+                x = size; y = size+1;
                 if(curboard->b[x][y]==0) break;
-                x = 4; y = 6;
+                x = size-1; y = size+1;
                 if(curboard->b[x][y]==0) break;
-                x = 4; y = 5;
+                x = size-1; y = size;
                 if(curboard->b[x][y]==0) break;
-                x = 4; y = 4;
+                x = size-1; y = size-1;
                 if(curboard->b[x][y]==0) break;
-                x = 5; y = 4;
+                x = size; y = size-1;
                 if(curboard->b[x][y]==0) break;
-                x = 4; y = 5;
+                x = size-1; y = size;
                 if(curboard->b[x][y]==0) break;
-                x = 6; y = 10;
+                x = size-2; y = size;
                 if(curboard->b[x][y]==0) break;
-             }}
+                x = size; y = size-2;
+                if(curboard->b[x][y]==0) break;
+                x = size-2; y = size-1;
+                if(curboard->b[x][y]==0) break;
+                x = size-1; y = size-2;
+                if(curboard->b[x][y]==0) break;
+                x = size+2; y = size;
+                if(curboard->b[x][y]==0) break;
+                x = size; y = size+2;
+                if(curboard->b[x][y]==0) break;
+                x = size+2; y = size+1;
+                if(curboard->b[x][y]==0) break;
+                x = size+1; y = size+2;
+                if(curboard->b[x][y]==0) break;
+             }
          }
          pair<int, int> hp = coordinatebackConversion(x,y);
         //  pair<int, int> hp = make_pair(x,y);        
@@ -2851,6 +2864,11 @@ string GamePlay::miniMax(Board* board, int depth){
     
 //   return make_pair(0, move);
 // }
+bool sortinrev(const pair<int,string> &a,  
+               const pair<int,string> &b) 
+{ 
+       return (a.first > b.first); 
+} 
 pair<int, string> GamePlay::maxValue(Board* board, int alpha, int beta, int depth){
     // cerr<<"---------------- at level"<<depth<<"\n";
     if(depth>=4){
@@ -2871,16 +2889,16 @@ pair<int, string> GamePlay::maxValue(Board* board, int alpha, int beta, int dept
         ChangeBoard(true, newboard, n);
         sortneigh.push_back(make_pair(calcEval(newboard),n));
     }
-    sort(sortneigh.begin(), sortneigh.end(), greater<int>());
+    sort(sortneigh.begin(), sortneigh.end(), sortinrev);
     int hi=1;
-    for (string n : neigh) {
+    for (auto n : sortneigh) {
         // cerr<<"max depth="<<depth<<"-----"<<n<<"------------"<<hi<<"/"<<neigh.size()<<endl;
         Board* newboard = board->copyBoard();
-        ChangeBoard(true, newboard, n);
+        ChangeBoard(true, newboard, n.second);
         // newboard = newboard->flipBoard();
         pair<int, string> newValue; 
         if(newboard->myringout>=3 || newboard->oppringout>=3)
-            newValue=make_pair(calcEval(newboard),"");
+            newValue=make_pair(n.first,"");
         else 
             newValue = minValue(newboard, alpha, beta, depth+1);
         // if(depth==1)
@@ -2894,7 +2912,7 @@ pair<int, string> GamePlay::maxValue(Board* board, int alpha, int beta, int dept
         // cerr<<n<<","<<newValue.second<<endl;
         if ( newValue.first > posValue ) {
             posValue = newValue.first;
-            move = n;
+            move = n.second;
         }                                               
         hi++;
     alpha = max(alpha, newValue.first);
@@ -2912,23 +2930,31 @@ pair<int, string> GamePlay::minValue(Board* board, int alpha, int beta, int dept
     int posValue = INT_MAX;
     string move;
     vector<string> neigh = neighbours(board, false);
+    vector<pair<int,string>> sortneigh;
+    for(string n: neigh)
+    {
+        Board* newboard = board->copyBoard();
+        ChangeBoard(false, newboard, n);
+        sortneigh.push_back(make_pair(calcEval(newboard),n));
+    }
+    sort(sortneigh.begin(), sortneigh.end());
     // cerr<<"-----------------------------min"<<endl;
     // board->printBoard();
     int num=1;
-    for (string n : neigh) {
+    for (auto n : sortneigh) {
         // cerr<<"min depth="<<depth<<"-----"<<n<<"-------"<<num<<"/"<<neigh.size()<<endl;
         Board* newboard = board->copyBoard();
-        ChangeBoard(false, newboard, n);
+        ChangeBoard(false, newboard, n.second);
         pair<int, string> newValue; 
         if(newboard->myringout>=3 || newboard->oppringout>=3)
-            newValue=make_pair(calcEval(newboard),"");
+            newValue=make_pair(n.first,"");
         else 
             newValue = maxValue(newboard, alpha, beta, depth+1);
         // pair<int, string> newValue = maxValue(newboard, alpha, beta, depth+1);
         // cerr<<n<<"------         "<<newValue.first<<endl;
         if ( newValue.first < posValue ) {
             posValue = newValue.first;
-            move = n;
+            move = n.second;
         }
         beta = min(beta, newValue.first);
         if(alpha>=beta) return make_pair(posValue, move);
@@ -3025,9 +3051,17 @@ int GamePlay::calcEval(Board* board)
                         // goodness+=200;
                         goodness+=1000;
                     }
-                    else if(count>=5){
+                    else if(count==5)
+                    {
+                        goodness+=25000;
+                    }
+                    else if(count>5 && contmarker==5){
                         // goodness+=5000;
                         goodness+=25000;
+                    }
+                    else if(count>5 && contmarker==6){
+                        // goodness+=5000;
+                        goodness+=625000;
                     }
                 }  
                 if(board->b[x][y]==1)
@@ -3046,9 +3080,17 @@ int GamePlay::calcEval(Board* board)
                         // goodness+=100;
                         goodness+=500;
                     }
-                    else if(count>=5){
+                    else if(count==5){
                         // goodness+=2500;
                         goodness+=12500;
+                    }
+                    else if(count>5 && contmarker==5){
+                        // goodness+=2500;
+                        goodness+=12500;
+                    }
+                    else if(count>5 && contmarker==6){
+                        // goodness+=2500;
+                        goodness+=312500;
                     }
                 }
             }
@@ -3156,9 +3198,17 @@ int GamePlay::calcEval(Board* board)
                         // goodness+=200;
                         goodness+=1000;
                     }
-                    else if(count>=5){
+                    else if(count==5)
+                    {
+                        goodness+=25000;
+                    }
+                    else if(count>5 && contmarker==5){
                         // goodness+=5000;
                         goodness+=25000;
+                    }
+                    else if(count>5 && contmarker==6){
+                        // goodness+=5000;
+                        goodness+=625000;
                     }
                 }  
                 if(board->b[x][y]==1)
@@ -3177,9 +3227,17 @@ int GamePlay::calcEval(Board* board)
                         // goodness+=100;
                         goodness+=500;
                     }
-                    else if(count>=5){
+                    else if(count==5){
                         // goodness+=2500;
                         goodness+=12500;
+                    }
+                    else if(count>5 && contmarker==5){
+                        // goodness+=2500;
+                        goodness+=12500;
+                    }
+                    else if(count>5 && contmarker==6){
+                        // goodness+=2500;
+                        goodness+=312500;
                     }
                 }
             }
@@ -3291,9 +3349,17 @@ int GamePlay::calcEval(Board* board)
                         // goodness+=200;
                         goodness+=1000;
                     }
-                    else if(count>=5){
+                    else if(count==5)
+                    {
+                        goodness+=25000;
+                    }
+                    else if(count>5 && contmarker==5){
                         // goodness+=5000;
                         goodness+=25000;
+                    }
+                    else if(count>5 && contmarker==6){
+                        // goodness+=5000;
+                        goodness+=625000;
                     }
                 }  
                 if(board->b[x][y]==1)
@@ -3312,9 +3378,17 @@ int GamePlay::calcEval(Board* board)
                         // goodness+=100;
                         goodness+=500;
                     }
-                    else if(count>=5){
+                    else if(count==5){
                         // goodness+=2500;
                         goodness+=12500;
+                    }
+                    else if(count>5 && contmarker==5){
+                        // goodness+=2500;
+                        goodness+=12500;
+                    }
+                    else if(count>5 && contmarker==6){
+                        // goodness+=2500;
+                        goodness+=312500;
                     }
                 }
             }
@@ -3424,9 +3498,17 @@ int GamePlay::calcEval(Board* board)
                         // goodness+=200;
                         goodness+=1000;
                     }
-                    else if(count>=5){
+                    else if(count==5)
+                    {
+                        goodness+=25000;
+                    }
+                    else if(count>5 && contmarker==5){
                         // goodness+=5000;
                         goodness+=25000;
+                    }
+                    else if(count>5 && contmarker==6){
+                        // goodness+=5000;
+                        goodness+=625000;
                     }
                 }  
                 if(board->b[x][y]==1)
@@ -3445,9 +3527,17 @@ int GamePlay::calcEval(Board* board)
                         // goodness+=100;
                         goodness+=500;
                     }
-                    else if(count>=5){
+                    else if(count==5){
                         // goodness+=2500;
                         goodness+=12500;
+                    }
+                    else if(count>5 && contmarker==5){
+                        // goodness+=2500;
+                        goodness+=12500;
+                    }
+                    else if(count>5 && contmarker==6){
+                        // goodness+=2500;
+                        goodness+=312500;
                     }
                 }
             }
@@ -3556,8 +3646,17 @@ int GamePlay::calcEval(Board* board)
                     else if(count==4){
                         goodness-=1000;
                     }
-                    else if(count>=5){
+                    else if(count==5)
+                    {
                         goodness-=25000;
+                    }
+                    else if(count>5 && contmarker==5){
+                        // goodness+=5000;
+                        goodness-=25000;
+                    }
+                    else if(count>5 && contmarker==6){
+                        // goodness+=5000;
+                        goodness-=625000;
                     }
                 }  
                 if(board->b[x][y]==-1)
@@ -3574,8 +3673,17 @@ int GamePlay::calcEval(Board* board)
                     else if(count==4){
                         goodness-=500;
                     }
-                    else if(count>=5){
+                    else if(count==5){
+                        // goodness+=2500;
                         goodness-=12500;
+                    }
+                    else if(count>5 && contmarker==5){
+                        // goodness+=2500;
+                        goodness-=12500;
+                    }
+                    else if(count>5 && contmarker==6){
+                        // goodness+=2500;
+                        goodness-=312500;
                     }
                 }
             }
@@ -3661,8 +3769,17 @@ int GamePlay::calcEval(Board* board)
                     else if(count==4){
                         goodness-=1000;
                     }
-                    else if(count>=5){
+                    else if(count==5)
+                    {
                         goodness-=25000;
+                    }
+                    else if(count>5 && contmarker==5){
+                        // goodness+=5000;
+                        goodness-=25000;
+                    }
+                    else if(count>5 && contmarker==6){
+                        // goodness+=5000;
+                        goodness-=625000;
                     }
                 }  
                 if(board->b[x][y]==-1)
@@ -3679,8 +3796,17 @@ int GamePlay::calcEval(Board* board)
                     else if(count==4){
                         goodness-=500;
                     }
-                    else if(count>=5){
+                    else if(count==5){
+                        // goodness+=2500;
                         goodness-=12500;
+                    }
+                    else if(count>5 && contmarker==5){
+                        // goodness+=2500;
+                        goodness-=12500;
+                    }
+                    else if(count>5 && contmarker==6){
+                        // goodness+=2500;
+                        goodness-=312500;
                     }
                 }
             }
@@ -3770,8 +3896,17 @@ int GamePlay::calcEval(Board* board)
                     else if(count==4){
                         goodness-=1000;
                     }
-                    else if(count>=5){
+                    else if(count==5)
+                    {
                         goodness-=25000;
+                    }
+                    else if(count>5 && contmarker==5){
+                        // goodness+=5000;
+                        goodness-=25000;
+                    }
+                    else if(count>5 && contmarker==6){
+                        // goodness+=5000;
+                        goodness-=625000;
                     }
                 }  
                 if(board->b[x][y]==-1)
@@ -3788,8 +3923,17 @@ int GamePlay::calcEval(Board* board)
                     else if(count==4){
                         goodness-=500;
                     }
-                    else if(count>=5){
+                    else if(count==5){
+                        // goodness+=2500;
                         goodness-=12500;
+                    }
+                    else if(count>5 && contmarker==5){
+                        // goodness+=2500;
+                        goodness-=12500;
+                    }
+                    else if(count>5 && contmarker==6){
+                        // goodness+=2500;
+                        goodness-=312500;
                     }
                 }
             }
@@ -3878,8 +4022,17 @@ int GamePlay::calcEval(Board* board)
                     else if(count==4){
                         goodness-=1000;
                     }
-                    else if(count>=5){
+                    else if(count==5)
+                    {
                         goodness-=25000;
+                    }
+                    else if(count>5 && contmarker==5){
+                        // goodness+=5000;
+                        goodness-=25000;
+                    }
+                    else if(count>5 && contmarker==6){
+                        // goodness+=5000;
+                        goodness-=625000;
                     }
                 }  
                 if(board->b[x][y]==-1)
@@ -3896,8 +4049,17 @@ int GamePlay::calcEval(Board* board)
                     else if(count==4){
                         goodness-=500;
                     }
-                    else if(count>=5){
+                    else if(count==5){
+                        // goodness+=2500;
                         goodness-=12500;
+                    }
+                    else if(count>5 && contmarker==5){
+                        // goodness+=2500;
+                        goodness-=12500;
+                    }
+                    else if(count>5 && contmarker==6){
+                        // goodness+=2500;
+                        goodness-=312500;
                     }
                 }
             }
@@ -3985,18 +4147,30 @@ int GamePlay::calcEval(Board* board)
     // goodness-=v[2]*10000;
     // goodness-=v[1]*100;
     // goodness-=(totalMyRingClash(board)/(5-board->myringout))*400;
-    if(board->myringout==1)
+    if(board->myringout==1 && contmarker==5)
         goodness+=100000;
-    if(board->myringout==2)
+    if(board->myringout==2 && contmarker==5)
         goodness+=500000;
-    if(board->myringout==3)
+    if(board->myringout==3 && contmarker==5)
         goodness+=1500000;
-    if(board->oppringout==1)
+    if(board->oppringout==1 && contmarker==5)
         goodness-=100000;
-    if(board->oppringout==2)
+    if(board->oppringout==2 && contmarker==5)
         goodness-=500000;
-    if(board->oppringout==3)
+    if(board->oppringout==3 && contmarker==5)
         goodness-=1500000;
+    if(board->myringout==1 && contmarker==6)
+        goodness+=2500000;
+    if(board->myringout==2 && contmarker==6)
+        goodness+=12500000;
+    if(board->myringout==3 && contmarker==6)
+        goodness+=32500000;
+    if(board->oppringout==1 && contmarker==6)
+        goodness-=2500000;
+    if(board->oppringout==2 && contmarker==6)
+        goodness-=12500000;
+    if(board->oppringout==3 && contmarker==6)
+        goodness-=32500000;
     // goodness+=board->myringout*200000;
     // // cout<<"Ring+ ->"<<goodness<<endl;
     // goodness-=board->oppringout*200000;
