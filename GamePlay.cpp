@@ -16,6 +16,8 @@ GamePlay::GamePlay ( )
 
 GamePlay::GamePlay (int size, int contmarker)
 {
+    srand(time(NULL));
+    this->wall = rand()%6;
     this->size=size;
     this->startring=size;
     this->contmarker = contmarker;
@@ -2718,62 +2720,296 @@ string GamePlay::nextMove()
             // }
             //1st turn is ours
              if(curboard->myringpos.size()==curboard->oppringpos.size()){
-                x = 1; y = size+1;
-                if(curboard->b[x][y]==0) break;
-                x = 2; y = size+2;
-                if(curboard->b[x][y]==0) break;
-                x = 3; y = size+3;
-                if(curboard->b[x][y]==0) break;
-                x = 4; y = size+4;
-                if(curboard->b[x][y]==0) break;
-                x = 5; y = size+5;
-                if(curboard->b[x][y]==0) break;
-                x = 0; y = 5;
-                if(curboard->b[x][y]==0) break;
-                x = 0; y = 4;
-                if(curboard->b[x][y]==0) break;
-                x = 0; y = 3;
-                if(curboard->b[x][y]==0) break;
-                x = 0; y = 2;
-                if(curboard->b[x][y]==0) break;
-                x = 0; y = 1;
+                if(wall==0){
+                    x = 1; y = size+1;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2; y = size+2;
+                    if(curboard->b[x][y]==0) break;
+                    x = 3; y = size+3;
+                    if(curboard->b[x][y]==0) break;
+                    x = 4; y = size+4;
+                    if(curboard->b[x][y]==0) break;
+                    x = 5; y = size+5;
+                    if(curboard->b[x][y]==0) break;
+                    x = 0; y = size-1;
+                    if(curboard->b[x][y]==0) break;
+                    x = 0; y = size-2;
+                    if(curboard->b[x][y]==0) break;
+                    x = 0; y = size-3;
+                    if(curboard->b[x][y]==0) break;
+                    x = 0; y = size-4;
+                    if(curboard->b[x][y]==0) break;
+                    x = 0; y = size-5;
+                }
+                else if(wall==1){
+                    x = size+1; y = 2*size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+2; y = 2*size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+3; y = 2*size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+4; y = 2*size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+5; y = 2*size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-1; y = 2*size-1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-2; y = 2*size-2;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-3; y = 2*size-3;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-4; y = 2*size-4;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-5; y = 2*size-5;
+                }
+                else if(wall==2){
+                    x = 2*size; y = 2*size-1;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size; y = 2*size-2;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size; y = 2*size-3;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size; y = 2*size-4;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size; y = 2*size-5;
+                    if(curboard->b[x][y]==0) break;
+                    
+
+                    x = size+5; y = 2*size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+4; y = 2*size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+3; y = 2*size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+2; y = 2*size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+1; y = 2*size;
+                    if(curboard->b[x][y]==0) break;
+
+                    x = size-1; y = 2*size-1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-2; y = 2*size-2;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-3; y = 2*size-3;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-4; y = 2*size-4;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-5; y = 2*size-5;
+                }
+                else if(wall==3){
+                    x = 2*size-1; y = size-1;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size-2; y = size-2;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size-3; y = size-3;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size-4; y = size-4;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size-5; y = size-5;
+                    if(curboard->b[x][y]==0) break;
+
+
+                    x = 2*size; y = 2*size-5;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size; y = 2*size-4;
+                    if(curboard->b[x][y]==0) break;                    
+                    x = 2*size; y = 2*size-3;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size; y = 2*size-2;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size; y = 2*size-1;
+                    if(curboard->b[x][y]==0) break;
+
+
+                    x = size+5; y = 2*size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+4; y = 2*size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+3; y = 2*size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+2; y = 2*size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+1; y = 2*size;
+                    if(curboard->b[x][y]==0) break;
+                }
+                else if(wall==4){
+                    x = size-1; y = 0;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-2; y = 0;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-3; y = 0;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-4; y = 0;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-5; y = 0;
+                    if(curboard->b[x][y]==0) break;
+                    
+                    
+                    x = 2*size-5; y = size-5;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size-4; y = size-4;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size-3; y = size-3;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size-2; y = size-2;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size-1; y = size-1;
+                    if(curboard->b[x][y]==0) break;
+                    
+
+                    x = 2*size; y = 2*size-5;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size; y = 2*size-4;
+                    if(curboard->b[x][y]==0) break;                    
+                    x = 2*size; y = 2*size-3;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size; y = 2*size-2;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size; y = 2*size-1;
+                    if(curboard->b[x][y]==0) break;
+                }
+                else if(wall==5){
+                    x = 0; y = size-5;
+                    if(curboard->b[x][y]==0) break;
+                    x = 0; y = size-4;
+                    if(curboard->b[x][y]==0) break;
+                    x = 0; y = size-3;
+                    if(curboard->b[x][y]==0) break;
+                    x = 0; y = size-2;
+                    if(curboard->b[x][y]==0) break;
+                    x = 0; y = size-1;
+                    if(curboard->b[x][y]==0) break;
+
+
+                    x = size-5; y = 0;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-4; y = 0;
+                    if(curboard->b[x][y]==0) break;                    
+                    x = size-3; y = 0;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-2; y = 0;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-1; y = 0;
+                    if(curboard->b[x][y]==0) break;
+
+
+                    x = 2*size-5; y = size-5;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size-4; y = size-4;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size-3; y = size-3;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size-2; y = size-2;
+                    if(curboard->b[x][y]==0) break;
+                    x = 2*size-1; y = size-1;
+                    if(curboard->b[x][y]==0) break;
+                }
              }
              //second turn is ours
              else{
-                x = size; y = size;
-                if(curboard->b[x][y]==0) break;
-                x = size+1; y = size;
-                if(curboard->b[x][y]==0) break;
-                x = size+1; y = size+1;
-                if(curboard->b[x][y]==0) break;
-                x = size; y = size+1;
-                if(curboard->b[x][y]==0) break;
-                x = size-1; y = size+1;
-                if(curboard->b[x][y]==0) break;
-                x = size-1; y = size;
-                if(curboard->b[x][y]==0) break;
-                x = size-1; y = size-1;
-                if(curboard->b[x][y]==0) break;
-                x = size; y = size-1;
-                if(curboard->b[x][y]==0) break;
-                x = size-1; y = size;
-                if(curboard->b[x][y]==0) break;
-                x = size-2; y = size;
-                if(curboard->b[x][y]==0) break;
-                x = size; y = size-2;
-                if(curboard->b[x][y]==0) break;
-                x = size-2; y = size-1;
-                if(curboard->b[x][y]==0) break;
-                x = size-1; y = size-2;
-                if(curboard->b[x][y]==0) break;
-                x = size+2; y = size;
-                if(curboard->b[x][y]==0) break;
-                x = size; y = size+2;
-                if(curboard->b[x][y]==0) break;
-                x = size+2; y = size+1;
-                if(curboard->b[x][y]==0) break;
-                x = size+1; y = size+2;
-                if(curboard->b[x][y]==0) break;
+                 wall=2;
+                 if(wall==0 || wall==3){
+                    x = size; y = size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+1; y = size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+1; y = size+1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size; y = size+1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-1; y = size+1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-1; y = size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-1; y = size-1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size; y = size-1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-1; y = size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-2; y = size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size; y = size-2;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-2; y = size-1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-1; y = size-2;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+2; y = size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size; y = size+2;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+2; y = size+1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+1; y = size+2;
+                    if(curboard->b[x][y]==0) break;
+                 }
+                 else if(wall==1 || wall==4){
+                    x = size; y = size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-1; y = size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-1; y = size-1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size; y = size-1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+1; y = size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+1; y = size+1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size; y = size+1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-1; y = size+1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-2; y = size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size; y = size-2;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-2; y = size-1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-1; y = size-2;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+2; y = size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size; y = size+2;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+2; y = size+1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+1; y = size+2;
+                    if(curboard->b[x][y]==0) break;
+                 }
+                 else if(wall==2 || wall==5){
+                    x = size; y = size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-1; y = size-1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size; y = size-1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+1; y = size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+1; y = size+1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size; y = size+1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-1; y = size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-2; y = size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size; y = size-2;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-2; y = size-1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size-1; y = size-2;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+2; y = size;
+                    if(curboard->b[x][y]==0) break;
+                    x = size; y = size+2;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+2; y = size+1;
+                    if(curboard->b[x][y]==0) break;
+                    x = size+1; y = size+2;
+                    if(curboard->b[x][y]==0) break;
+                 }
              }
          }
          pair<int, int> hp = coordinatebackConversion(x,y);

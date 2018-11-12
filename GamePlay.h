@@ -13,7 +13,9 @@
 #include <vector>
 #include <limits.h>
 #include <algorithm>
+#include <ctime>
 #include "Board.h"
+
 // #include "Track.h"
 // #include "Session.h"
 
@@ -35,6 +37,7 @@ private:
     int contmarker;
     int startring;
     int MAX_DEPTH;
+    int wall;
 
     double processingTimeInMinutes ;
     // double tradeoffCoefficient ; // the tradeoff coefficient
